@@ -23,5 +23,5 @@
 hs_err_pid*
 
 # Other
-.idea/
-target/
+.idea/*
+target/*
