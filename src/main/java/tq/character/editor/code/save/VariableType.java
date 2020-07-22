@@ -18,25 +18,14 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code.core;
+package tq.character.editor.code.save;
 
-public class UnhandledRuntimeException extends RuntimeException {
-    public UnhandledRuntimeException() {
-    }
-
-    public UnhandledRuntimeException(String message) {
-        super(message);
-    }
-
-    public UnhandledRuntimeException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public UnhandledRuntimeException(Throwable cause) {
-        super(cause);
-    }
-
-    public UnhandledRuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+public enum VariableType {
+    UNKNOWN,
+    STRING,
+    INTEGER,
+    FLOAT,
+    STRING_UTF_16_LE,
+    UID,
+    STREAM,
 }

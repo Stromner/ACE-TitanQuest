@@ -18,14 +18,25 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code.util;
+package tq.character.editor.code.core;
 
-import java.io.File;
-import java.nio.file.Paths;
-
-public class Constants {
-    private Constants() {
+public class UnhandledRuntimeException extends RuntimeException {
+    public UnhandledRuntimeException() {
     }
 
-    public static final String ERROR_MSG_EXCEPTION = "Error: ";
+    public UnhandledRuntimeException(String message) {
+        super(message);
+    }
+
+    public UnhandledRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public UnhandledRuntimeException(Throwable cause) {
+        super(cause);
+    }
+
+    public UnhandledRuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

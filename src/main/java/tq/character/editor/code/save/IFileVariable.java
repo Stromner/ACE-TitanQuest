@@ -18,14 +18,14 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code.save;
+package tq.character.editor.code.save;
 
-public enum VariableType {
-    UNKNOWN,
-    STRING,
-    INTEGER,
-    FLOAT,
-    STRING_UTF_16_LE,
-    UID,
-    STREAM,
+import tq.character.editor.code.IBlockType;
+
+public interface IFileVariable {
+    String var();
+
+    VariableType type();
+
+    IBlockType location();
 }

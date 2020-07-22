@@ -1,8 +1,8 @@
 /*
  * Copyright (C) 2019 Emerson Pinter - All Rights Reserved
  */
-
-package copied.code.test.save.player;
+/*
+package tq.character.editor.code.test.save.player;
 
 import br.com.pinter.tqrespec.core.GuiceModule;
 import br.com.pinter.tqrespec.core.InjectionContext;
@@ -167,4 +167,4 @@ public class PlayerParserTest {
         assertTrue(headerInfo.getPlayerVersion() > 0);
         assertTrue(headerInfo.getPlayerLevel() > 0);
     }
-}
+}*/

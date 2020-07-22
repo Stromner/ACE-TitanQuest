@@ -18,13 +18,13 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code.save.player;
+package tq.character.editor.code.save.player;
 
-import copied.code.IBlockType;
-import copied.code.save.*;
+import tq.character.editor.code.IBlockType;
+import tq.character.editor.code.save.*;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableListMultimap;
-import copied.code.save.FileParser;
+import tq.character.editor.code.save.FileParser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,14 +37,14 @@ import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
-final class PlayerParser extends FileParser {
+public final class PlayerParser extends FileParser {
     private static final Logger log = LoggerFactory.getLogger(PlayerParser.class.getName());
 
     private final String player;
     private HeaderInfo headerInfo = new HeaderInfo();
     private final File playerChr;
 
-    PlayerParser(File playerChr, String playerName) {
+    public PlayerParser(File playerChr, String playerName) {
         this.playerChr = playerChr;
         this.player = playerName;
     }
@@ -53,7 +53,7 @@ final class PlayerParser extends FileParser {
         return headerInfo;
     }
 
-    HeaderInfo parseHeader() {
+    public HeaderInfo parseHeader() {
         ArrayListMultimap<String, VariableInfo> variables = ArrayListMultimap.create();
 
         BlockInfo block = new BlockInfo();
@@ -138,13 +138,13 @@ final class PlayerParser extends FileParser {
     }
 
     @Override
-    protected void fillBuffer() throws IOException {
+    public void fillBuffer() throws IOException {
         readPlayerChr();
         prepareBufferForRead();
     }
 
     @Override
-    protected void prepareForParse() throws IOException, IncompatibleSavegameException {
+    public void prepareForParse() throws IOException, IncompatibleSavegameException {
         //add header to list of ignored blocks
         getBlocksIgnore().add(0);
 
@@ -170,7 +170,7 @@ final class PlayerParser extends FileParser {
         return getBuffer();
     }
 
-    void readPlayerChr() throws IOException {
+    public void readPlayerChr() throws IOException {
         if (!playerChr.exists()) {
             log.debug("File ''{0}'' doesn't exists", playerChr.toString());
             return;

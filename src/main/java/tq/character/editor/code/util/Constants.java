@@ -18,12 +18,11 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code;
+package tq.character.editor.code.util;
 
-import java.io.Serializable;
+public class Constants {
+    private Constants() {
+    }
 
-public interface IBlockType extends Serializable {
-    int getValue();
-
-    String name();
+    public static final String ERROR_MSG_EXCEPTION = "Error: ";
 }

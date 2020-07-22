@@ -18,7 +18,7 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package copied.code.save;
+package tq.character.editor.code.save;
 
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang3.StringUtils;
