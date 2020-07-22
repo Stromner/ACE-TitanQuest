@@ -30,7 +30,7 @@ public class HeaderInfo implements Serializable {
     private int playerLevel = -1;
     private int playerVersion = -1;
 
-    int getHeaderVersion() {
+    public int getHeaderVersion() {
         return headerVersion;
     }
 
@@ -54,7 +54,7 @@ public class HeaderInfo implements Serializable {
         this.playerClassTag = playerClassTag;
     }
 
-    int getPlayerLevel() {
+    public int getPlayerLevel() {
         return playerLevel;
     }
 
@@ -62,7 +62,7 @@ public class HeaderInfo implements Serializable {
         this.playerLevel = playerLevel;
     }
 
-    int getPlayerVersion() {
+    public int getPlayerVersion() {
         return playerVersion;
     }
 

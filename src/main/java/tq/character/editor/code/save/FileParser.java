@@ -20,12 +20,12 @@
 
 package tq.character.editor.code.save;
 
-import tq.character.editor.code.IBlockType;
-import tq.character.editor.code.core.UnhandledRuntimeException;
-import tq.character.editor.code.util.Constants;
 import com.google.common.collect.ImmutableListMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tq.character.editor.code.IBlockType;
+import tq.character.editor.code.core.UnhandledRuntimeException;
+import tq.character.editor.code.util.Constants;
 
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
@@ -140,7 +140,7 @@ public abstract class FileParser {
 
             setParentType(block);
 
-            log.trace("''{0}''", block);
+            log.trace("{}", block);
         }
     }
 
@@ -179,7 +179,7 @@ public abstract class FileParser {
                 queueBegin.add(blockTagOffset);
                 lastBegin = blockTagOffset;
                 foundBegin = 0;
-                log.trace("adding begin-block ''{0}'' to queue", blockTagOffset);
+                log.trace("adding begin-block {} to queue", blockTagOffset);
             }
 
             if (b.equals(END_BLOCK_BYTES[foundEnd]) && ++foundEnd == END_BLOCK_BYTES.length) {
@@ -199,7 +199,7 @@ public abstract class FileParser {
                 blockInfoTable.put(blockStart, block);
                 foundEnd = 0;
                 int logBlockStart = blockStart;
-                log.trace("adding end-block ''{0}'' to queue, (start=''{1}'',end=''{2}'')", blockEnd, logBlockStart, blockEnd);
+                log.trace("adding end-block {} to queue, (start={},end={})", blockEnd, logBlockStart, blockEnd);
             }
 
         }
@@ -376,7 +376,7 @@ public abstract class FileParser {
                         String.format("%s__%s", name, fileBlock.name()));
                 type = fileVariableMultiple.type();
             } catch (Exception e) {
-                log.debug("Variable definition for ''{0}'' not found.", varId);
+                log.debug("Variable definition for {} not found.", varId);
             }
         }
 

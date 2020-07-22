@@ -20,14 +20,13 @@
 
 package tq.character.editor.code.save.player;
 
-import tq.character.editor.code.IBlockType;
-import tq.character.editor.code.save.*;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableListMultimap;
-import tq.character.editor.code.save.FileParser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tq.character.editor.code.IBlockType;
+import tq.character.editor.code.save.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,7 +69,7 @@ public final class PlayerParser extends FileParser {
 
             if (BEGIN_BLOCK.equals(name)) {
                 BlockInfo b = getBlockInfo().get(keyOffset);
-                log.debug("ignoring block offset: ''{0}''", keyOffset);
+                log.debug("ignoring block offset: {}", keyOffset);
                 getBuffer().position(b.getEnd() + 1);
             }
 
@@ -151,7 +150,7 @@ public final class PlayerParser extends FileParser {
         if (this.getBuffer() == null || this.getBuffer().capacity() <= 50) {
             throw new IOException("Can't read Player.chr from player " + this.player);
         }
-        log.debug("Character ''{0}'' loaded, size=''{1}''", this.player, this.getBuffer().capacity());
+        log.debug("Character {} loaded, size={}", this.player, this.getBuffer().capacity());
 
         headerInfo = parseHeader();
 
@@ -172,7 +171,7 @@ public final class PlayerParser extends FileParser {
 
     public void readPlayerChr() throws IOException {
         if (!playerChr.exists()) {
-            log.debug("File ''{0}'' doesn't exists", playerChr.toString());
+            log.debug("File {} doesn't exists", playerChr.toString());
             return;
         }
 
@@ -185,7 +184,7 @@ public final class PlayerParser extends FileParser {
             }
         }
 
-        log.debug("File ''{0}'' read to buffer: ''{1}''", playerChr, this.getBuffer());
+        log.debug("File {} read to buffer: {}", playerChr, this.getBuffer());
     }
 
     @Override
@@ -259,7 +258,7 @@ public final class PlayerParser extends FileParser {
             life.setAlias("life");
             mana.setAlias("mana");
 
-            String logMsg = "blockStart: ''{0}''; variableInfo: ''{1}'';";
+            String logMsg = "blockStart: {}; variableInfo: {};";
             log.debug(logMsg, block.getStart(), dex.toString());
             log.debug(logMsg, block.getStart(), str.toString());
             log.debug(logMsg, block.getStart(), inl.toString());
