@@ -27,8 +27,8 @@ class TqCharacterEditorTests {
 
     @BeforeEach
     public void setUp() {
-        File file = new File(Objects.requireNonNull(env.getProperty("test.input.file"))).getAbsoluteFile();
-        playerParser = new PlayerParser(file, "savegame");
+        File file = new File(Objects.requireNonNull(env.getProperty("test.character.file"))).getAbsoluteFile();
+        playerParser = new PlayerParser(file, "DummyBounceCha");
     }
 
     @AfterEach
@@ -43,6 +43,8 @@ class TqCharacterEditorTests {
             playerParser.buildBlocksTable();
             playerParser.prepareForParse();
             playerParser.prepareBufferForRead();
+
+            playerParser.parse();
         } catch (Exception e) {
             log.error(Constants.ERROR_MSG_EXCEPTION, e);
         }
