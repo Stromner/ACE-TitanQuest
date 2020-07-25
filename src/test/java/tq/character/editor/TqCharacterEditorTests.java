@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.code.save.player.HeaderInfo;
-import tq.character.editor.code.save.player.PlayerParser;
-import tq.character.editor.code.util.Constants;
+import tq.character.editor.copied.code.save.player.HeaderInfo;
+import tq.character.editor.copied.code.save.player.PlayerParser;
+import tq.character.editor.copied.code.util.Constants;
 
 import java.io.File;
 import java.util.Objects;
@@ -43,8 +43,6 @@ class TqCharacterEditorTests {
             playerParser.buildBlocksTable();
             playerParser.prepareForParse();
             playerParser.prepareBufferForRead();
-
-            playerParser.parse();
         } catch (Exception e) {
             log.error(Constants.ERROR_MSG_EXCEPTION, e);
         }
