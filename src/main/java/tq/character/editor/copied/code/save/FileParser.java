@@ -18,14 +18,14 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save;
+package tq.character.editor.copied.code.save;
 
 import com.google.common.collect.ImmutableListMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tq.character.editor.code.IBlockType;
-import tq.character.editor.code.core.UnhandledRuntimeException;
-import tq.character.editor.code.util.Constants;
+import tq.character.editor.copied.code.IBlockType;
+import tq.character.editor.copied.code.core.UnhandledRuntimeException;
+import tq.character.editor.copied.code.util.Constants;
 
 import java.io.IOException;
 import java.nio.BufferUnderflowException;

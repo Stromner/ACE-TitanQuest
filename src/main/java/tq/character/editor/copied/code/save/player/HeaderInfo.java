@@ -18,7 +18,7 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save.player;
+package tq.character.editor.copied.code.save.player;
 
 import java.io.Serializable;
 

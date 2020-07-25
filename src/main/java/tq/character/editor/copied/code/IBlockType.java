@@ -18,14 +18,12 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save;
+package tq.character.editor.copied.code;
 
-import tq.character.editor.code.IBlockType;
+import java.io.Serializable;
 
-public interface IFileVariable {
-    String var();
+public interface IBlockType extends Serializable {
+    int getValue();
 
-    VariableType type();
-
-    IBlockType location();
+    String name();
 }

@@ -18,9 +18,9 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save;
+package tq.character.editor.copied.code.save;
 
-import tq.character.editor.code.IBlockType;
+import tq.character.editor.copied.code.IBlockType;
 
 import java.util.Objects;
 
@@ -29,8 +29,8 @@ public class FileBlockType implements IBlockType {
     public static final FileBlockType BODY = new FileBlockType(-2, "BODY");
     public static final FileBlockType UNKNOWN = new FileBlockType(-1, "UNKNOWN");
 
-    private String name;
-    private int value;
+    private final String name;
+    private final int value;
 
     public FileBlockType(int value, String name) {
         this.value = value;

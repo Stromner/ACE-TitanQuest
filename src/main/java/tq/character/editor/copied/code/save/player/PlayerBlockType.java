@@ -18,9 +18,9 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save.player;
+package tq.character.editor.copied.code.save.player;
 
-import tq.character.editor.code.save.FileBlockType;
+import tq.character.editor.copied.code.save.FileBlockType;
 
 public class PlayerBlockType extends FileBlockType {
     static final FileBlockType PLAYER_HEADER = new FileBlockType(0, "PLAYER_HEADER");

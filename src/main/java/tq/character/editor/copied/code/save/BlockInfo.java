@@ -18,11 +18,11 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save;
+package tq.character.editor.copied.code.save;
 
-import tq.character.editor.code.IBlockType;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
+import tq.character.editor.copied.code.IBlockType;
 
 import java.io.Serializable;
 import java.util.ArrayList;

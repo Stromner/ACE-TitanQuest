@@ -18,16 +18,16 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save.player;
+package tq.character.editor.copied.code.save.player;
 
-import tq.character.editor.code.IBlockType;
-import tq.character.editor.code.save.IFileVariable;
-import tq.character.editor.code.save.VariableType;
+import tq.character.editor.copied.code.IBlockType;
+import tq.character.editor.copied.code.save.IFileVariable;
+import tq.character.editor.copied.code.save.VariableType;
 
 import java.util.HashMap;
 
 public class PlayerFileVariable implements IFileVariable {
-    private static HashMap<String, PlayerFileVariable> map = new HashMap<>();
+    private static final HashMap<String, PlayerFileVariable> map = new HashMap<>();
 
     private final IBlockType location;
     private final String var;

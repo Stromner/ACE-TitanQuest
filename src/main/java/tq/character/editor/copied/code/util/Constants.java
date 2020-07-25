@@ -18,7 +18,7 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.util;
+package tq.character.editor.copied.code.util;
 
 public class Constants {
     private Constants() {

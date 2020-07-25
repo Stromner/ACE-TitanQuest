@@ -18,15 +18,15 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save.player;
+package tq.character.editor.copied.code.save.player;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableListMultimap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tq.character.editor.code.IBlockType;
-import tq.character.editor.code.save.*;
+import tq.character.editor.copied.code.IBlockType;
+import tq.character.editor.copied.code.save.*;
 
 import java.io.File;
 import java.io.FileInputStream;

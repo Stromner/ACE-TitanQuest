@@ -18,7 +18,7 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code.save;
+package tq.character.editor.copied.code.save;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class UID {
-    private String value;
+    private final String value;
 
     public UID(String value) {
         this.value = value;

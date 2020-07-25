@@ -18,12 +18,25 @@
     along with TQ Respec.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package tq.character.editor.code;
+package tq.character.editor.copied.code.core;
 
-import java.io.Serializable;
+public class UnhandledRuntimeException extends RuntimeException {
+    public UnhandledRuntimeException() {
+    }
 
-public interface IBlockType extends Serializable {
-    int getValue();
+    public UnhandledRuntimeException(String message) {
+        super(message);
+    }
 
-    String name();
+    public UnhandledRuntimeException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public UnhandledRuntimeException(Throwable cause) {
+        super(cause);
+    }
+
+    public UnhandledRuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }
