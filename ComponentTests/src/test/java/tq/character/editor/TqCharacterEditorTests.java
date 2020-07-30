@@ -1,6 +1,7 @@
 package tq.character.editor;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,9 +37,11 @@ class TqCharacterEditorTests {
     }
 
     @Test
+    @Ignore
     public void testRead() {
         try {
-            playerParser.readPlayerChr();
+            playerParser.parse();
+
             playerParser.fillBuffer();
             playerParser.buildBlocksTable();
             playerParser.prepareForParse();
@@ -53,10 +56,4 @@ class TqCharacterEditorTests {
         Assert.assertTrue(headerInfo.getPlayerVersion() > 0);
         Assert.assertTrue(headerInfo.getPlayerLevel() > 0);
     }
-
-    @Test
-    public void testWrite() {
-        assert (false);
-    }
-
 }

@@ -10,5 +10,5 @@ package tq.character.editor.file.handling.codec;
 public interface CodecInterpreter<E, V> {
     E decode(V data);
 
-    void encode(E data);
+    V encode(E data);
 }
