@@ -40,6 +40,10 @@ public class ByteFileHandler implements FileHandler {
         // TODO
     }
 
+    public ByteBuffer getByteBuffer() {
+        return byteBuffer;
+    }
+
     private void prepareByteBuffer(int size) {
         byteBuffer = ByteBuffer.allocate(size);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
