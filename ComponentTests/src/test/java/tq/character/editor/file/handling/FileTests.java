@@ -1,4 +1,4 @@
-package tq.character.editor.file;
+package tq.character.editor.file.handling;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.file.handling.FileHandler;
+import tq.character.editor.file.handling.codec.TQPlayerData;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ import java.util.Objects;
 @PropertySource("classpath::application.properties")
 public class FileTests {
     @Autowired
-    private FileHandler fileHandler;
+    private FileHandler<TQPlayerData> fileHandler;
     @Autowired
     private Environment env;
 
@@ -29,9 +29,12 @@ public class FileTests {
 
     @Test
     public void testRead() {
-        // TODO COMPLETE (GIVEN, WHEN, THEN ...)
+        // GIVEN (File to read in)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
+
+        // WHEN (A file is read a structured representation of the data is returned)
         fileHandler.getFileContent(filePath);
-        assert (false);
+
+        // TODO Verify structure
     }
 }

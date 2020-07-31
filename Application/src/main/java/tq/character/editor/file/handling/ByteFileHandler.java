@@ -5,20 +5,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tq.character.editor.file.handling.codec.CodecInterpreter;
+import tq.character.editor.file.handling.codec.TQPlayerData;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 @Component
-public class ByteFileHandler implements FileHandler {
+public class ByteFileHandler implements FileHandler<TQPlayerData> {
     private static final Logger log = LoggerFactory.getLogger(ByteFileHandler.class);
     @Autowired
-    private CodecInterpreter codecInterpreter;
+    private CodecInterpreter<TQPlayerData, ByteBuffer> codecInterpreter;
     private ByteBuffer byteBuffer;
 
     @Override
-    public Object getFileContent(String filePath) {
+    public TQPlayerData getFileContent(String filePath) {
         File f;
         FileInputStream fis;
         try {
@@ -36,7 +37,7 @@ public class ByteFileHandler implements FileHandler {
     }
 
     @Override
-    public void saveFile(Object content, String filePath) {
+    public void saveFile(TQPlayerData content, String filePath) {
         // TODO
     }
 
