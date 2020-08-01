@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.file.handling.codec.TQPlayerData;
+import tq.character.editor.file.handling.codec.PlayerData;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ import java.util.Objects;
 @PropertySource("classpath::application.properties")
 public class FileTests {
     @Autowired
-    private FileHandler<TQPlayerData> fileHandler;
+    private DataHandler<PlayerData> dataHandler;
     @Autowired
     private Environment env;
 
@@ -33,7 +33,7 @@ public class FileTests {
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
 
         // WHEN (A file is read a structured representation of the data is returned)
-        fileHandler.getFileContent(filePath);
+        dataHandler.processFile(filePath);
 
         // TODO Verify structure
     }

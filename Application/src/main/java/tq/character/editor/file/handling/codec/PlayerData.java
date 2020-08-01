@@ -5,10 +5,10 @@ import tq.character.editor.file.handling.codec.variable.VariableBlock;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TQPlayerData {
+public class PlayerData {
     private final List<VariableBlock> variableBlockList;
 
-    public TQPlayerData() {
+    public PlayerData() {
         variableBlockList = new ArrayList<>();
     }
 
