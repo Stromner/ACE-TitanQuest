@@ -3,7 +3,7 @@ package tq.character.editor.file.handling.bytecode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import tq.character.editor.file.handling.FileHandler;
+import tq.character.editor.file.handling.IFileHandler;
 import tq.character.editor.file.handling.codec.PlayerData;
 import tq.character.editor.file.handling.codec.variable.VariableBlock;
 import tq.character.editor.file.handling.codec.variable.VariableType;
@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 @Component
-public class BytecodeFileHandler implements FileHandler<PlayerData> {
+public class BytecodeFileHandler implements IFileHandler<PlayerData> {
     private static final Logger log = LoggerFactory.getLogger(BytecodeFileHandler.class);
     private ByteBuffer byteBuffer;
     private PlayerData playerData;

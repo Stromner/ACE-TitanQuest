@@ -5,7 +5,7 @@ package tq.character.editor.file.handling;
  *
  * @param <E> Structured representation of the data
  */
-public interface FileHandler<E> {
+public interface IFileHandler<E> {
     void readFile(String filePath);
 
     void saveFile(E content, String filePath);

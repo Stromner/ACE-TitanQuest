@@ -15,7 +15,7 @@ import java.util.Objects;
 @PropertySource("classpath::application.properties")
 public class FileTests {
     @Autowired
-    private DataHandler<PlayerData> dataHandler;
+    private IDataHandler<PlayerData> dataHandler;
     @Autowired
     private Environment env;
 
