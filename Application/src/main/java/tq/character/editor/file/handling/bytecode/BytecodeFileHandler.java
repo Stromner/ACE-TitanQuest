@@ -67,7 +67,7 @@ public class BytecodeFileHandler implements FileHandler<PlayerData> {
         while (data.remaining() > 0) {
             VariableBlock block = new VariableBlock();
 
-            String variableName = getNextVariableName(data);
+            String variableName = readString(data);
             VariableType variableType = VariablesGlossary.lookupVariable(variableName);
             Object variableContent = getNextVariableContent(variableType, data);
 
@@ -80,17 +80,30 @@ public class BytecodeFileHandler implements FileHandler<PlayerData> {
         return playerData;
     }
 
-    private String getNextVariableName(ByteBuffer data) {
-        int variableSize = data.getInt();
-        byte[] variableNameBuffer = new byte[variableSize];
-        data.get(variableNameBuffer, 0, variableSize);
-        return new String(variableNameBuffer);
+    private String readString(ByteBuffer data) {
+        return new String(readByteData(data));
+    }
+
+    private byte[] readByteData(ByteBuffer data) {
+        int dataSize = data.getInt();
+        byte[] dataContent = new byte[dataSize];
+        data.get(dataContent, 0, dataSize);
+        return dataContent;
     }
 
     private <T> T getNextVariableContent(VariableType variableType, ByteBuffer data) {
         switch (variableType) {
             case INTEGER:
                 return (T) Integer.valueOf(data.getInt());
+            case UTF8:
+                return (T) readString(data);
+            case UTF16:
+                return null;
+            case ID:
+                byte[] id = new byte[16];
+                return (T) data.get(id, 0, 16);
+            case STREAM:
+                return (T) readByteData(data);
             default:
                 log.error("Invalid variable type '{}'", variableType);
                 throw new RuntimeException("Invalid variable type");
