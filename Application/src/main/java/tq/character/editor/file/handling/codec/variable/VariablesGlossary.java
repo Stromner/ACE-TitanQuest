@@ -30,6 +30,7 @@ public class VariablesGlossary {
         glossaryMap.put("playerLevel", VariableType.INTEGER);
         glossaryMap.put("playerVersion", VariableType.INTEGER);
         // Block list 1
+        glossaryMap.put("myPlayerName", VariableType.UTF16);
 
 
     }

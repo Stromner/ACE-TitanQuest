@@ -1,6 +1,6 @@
 package tq.character.editor.file.handling.codec.variable;
 
-public class VariableBlock<T> {
+public class VariableInfo<T> {
     private String variableName;
     private VariableType variableType;
     private T variableContent;

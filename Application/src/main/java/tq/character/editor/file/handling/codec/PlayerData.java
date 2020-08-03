@@ -1,18 +1,18 @@
 package tq.character.editor.file.handling.codec;
 
-import tq.character.editor.file.handling.codec.variable.VariableBlock;
+import tq.character.editor.file.handling.codec.variable.VariableInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerData {
-    private final List<VariableBlock> variableBlockList;
+    private final List<VariableInfo> variableInfoList;
 
     public PlayerData() {
-        variableBlockList = new ArrayList<>();
+        variableInfoList = new ArrayList<>();
     }
 
-    public void addBlock(VariableBlock variableBlock) {
-        variableBlockList.add(variableBlock);
+    public void addBlock(VariableInfo variableInfo) {
+        variableInfoList.add(variableInfo);
     }
 }

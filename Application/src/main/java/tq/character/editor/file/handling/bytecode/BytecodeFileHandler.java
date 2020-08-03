@@ -5,14 +5,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import tq.character.editor.file.handling.IFileHandler;
 import tq.character.editor.file.handling.codec.PlayerData;
-import tq.character.editor.file.handling.codec.variable.VariableBlock;
+import tq.character.editor.file.handling.codec.variable.Block;
+import tq.character.editor.file.handling.codec.variable.VariableInfo;
 import tq.character.editor.file.handling.codec.variable.VariableType;
 import tq.character.editor.file.handling.codec.variable.VariablesGlossary;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 
+/**
+ * TODO Add explanation how the file is encoded
+ */
 @Component
 public class BytecodeFileHandler implements IFileHandler<PlayerData> {
     private static final Logger log = LoggerFactory.getLogger(BytecodeFileHandler.class);
@@ -33,7 +38,7 @@ public class BytecodeFileHandler implements IFileHandler<PlayerData> {
 
         prepareByteBuffer((int) f.length());
         readData(fis);
-        playerData = decode(byteBuffer);
+        decode(byteBuffer);
     }
 
     @Override
@@ -62,26 +67,70 @@ public class BytecodeFileHandler implements IFileHandler<PlayerData> {
     }
 
     private PlayerData decode(ByteBuffer data) {
-        PlayerData playerData = new PlayerData();
+        playerData = new PlayerData();
 
         while (data.remaining() > 0) {
-            VariableBlock block = new VariableBlock();
-
-            String variableName = readString(data);
-            VariableType variableType = VariablesGlossary.lookupVariable(variableName);
-            Object variableContent = getNextVariableContent(variableType, data);
-
-            block.setVariableName(variableName);
-            block.setVariableType(variableType);
-            block.setVariableContent(variableContent);
-            playerData.addBlock(block);
+            String variableName = readUTF8(data);
+            VariableInfo variableInfo;
+            if (variableName.equals("begin_block")) {
+                variableInfo = readBlock(data);
+            } else {
+                variableInfo = readVariable(data, variableName);
+            }
+            playerData.addBlock(variableInfo);
         }
 
         return playerData;
     }
 
-    private String readString(ByteBuffer data) {
-        return new String(readByteData(data));
+    private Block readBlock(ByteBuffer data) {
+        Block block = new Block();
+        data.getInt(); // Discard
+
+        String variableName;
+        do {
+            variableName = readUTF8(data);
+            VariableInfo variableInfo;
+            if (variableName.equals("begin_block")) {
+                variableInfo = readBlock(data);
+            } else {
+                variableInfo = readVariable(data, variableName);
+            }
+            block.addBlock(variableInfo);
+        } while (!variableName.equals("end_block"));
+
+        data.getInt(); // Discard
+        return block;
+    }
+
+    private VariableInfo readVariable(ByteBuffer data, String variableName) {
+        VariableType variableType = VariablesGlossary.lookupVariable(variableName);
+        var variableContent = getNextVariableContent(variableType, data);
+
+        VariableInfo variableInfo = new VariableInfo();
+        variableInfo.setVariableName(variableName);
+        variableInfo.setVariableType(variableType);
+        variableInfo.setVariableContent(variableContent);
+        return variableInfo;
+    }
+
+    private String readUTF8(ByteBuffer data) {
+        return new String(readBytes(data, false));
+    }
+
+    private String readUTF16(ByteBuffer data) {
+        return new String(readBytes(data, true), StandardCharsets.UTF_16LE);
+    }
+
+    private byte[] readBytes(ByteBuffer data, boolean doubleLen) {
+        int dataSize = data.getInt();
+        if (doubleLen) {
+            dataSize *= 2;
+        }
+
+        byte[] dataContent = new byte[dataSize];
+        data.get(dataContent, 0, dataSize);
+        return dataContent;
     }
 
     private byte[] readByteData(ByteBuffer data) {
@@ -96,9 +145,9 @@ public class BytecodeFileHandler implements IFileHandler<PlayerData> {
             case INTEGER:
                 return (T) Integer.valueOf(data.getInt());
             case UTF8:
-                return (T) readString(data);
+                return (T) readUTF8(data);
             case UTF16:
-                return null;
+                return (T) readUTF16(data);
             case ID:
                 byte[] id = new byte[16];
                 return (T) data.get(id, 0, 16);
