@@ -87,9 +87,8 @@ public class BytecodeFileHandler implements IFileHandler<PlayerData> {
         Block block = new Block();
         data.getInt(); // Discard
 
-        String variableName;
-        do {
-            variableName = readUTF8(data);
+        String variableName = readUTF8(data);
+        while (!variableName.equals("end_block")) {
             VariableInfo variableInfo;
             if (variableName.equals("begin_block")) {
                 variableInfo = readBlock(data);
@@ -97,7 +96,8 @@ public class BytecodeFileHandler implements IFileHandler<PlayerData> {
                 variableInfo = readVariable(data, variableName);
             }
             block.addBlock(variableInfo);
-        } while (!variableName.equals("end_block"));
+            variableName = readUTF8(data);
+        }
 
         data.getInt(); // Discard
         return block;
