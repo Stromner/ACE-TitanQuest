@@ -20,7 +20,7 @@ public class VariablesGlossary {
         fillGlossary();
     }
 
-    private static void fillGlossary() {
+    private void fillGlossary() {
         // Standalone variables
         glossaryMap.put("headerVersion", VariableType.INTEGER);
         glossaryMap.put("playerCharacterClass", VariableType.UTF8);
