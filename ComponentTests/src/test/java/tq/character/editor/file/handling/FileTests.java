@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.file.handling.codec.PlayerData;
+import tq.character.editor.data.IDataHandler;
+import tq.character.editor.data.file.handling.PlayerData;
 
 import java.util.Objects;
 

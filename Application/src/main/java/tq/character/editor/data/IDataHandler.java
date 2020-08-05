@@ -1,4 +1,4 @@
-package tq.character.editor.file.handling;
+package tq.character.editor.data;
 
 /**
  * Interface for interacting with the data layer

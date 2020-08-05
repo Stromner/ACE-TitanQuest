@@ -1,4 +1,4 @@
-package tq.character.editor.file.handling.codec.variable;
+package tq.character.editor.data.file.handling.variable;
 
 public class VariableInfo<T> {
     private String variableName;

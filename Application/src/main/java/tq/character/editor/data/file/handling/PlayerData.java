@@ -1,6 +1,6 @@
-package tq.character.editor.file.handling.codec;
+package tq.character.editor.data.file.handling;
 
-import tq.character.editor.file.handling.codec.variable.VariableInfo;
+import tq.character.editor.data.file.handling.variable.VariableInfo;
 
 import java.util.ArrayList;
 import java.util.List;
