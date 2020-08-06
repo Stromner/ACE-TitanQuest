@@ -12,7 +12,7 @@ import tq.character.editor.data.file.handling.PlayerData;
 
 import java.util.Objects;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PropertySource("classpath::application.properties")
 public class FileTests {
     @Autowired
