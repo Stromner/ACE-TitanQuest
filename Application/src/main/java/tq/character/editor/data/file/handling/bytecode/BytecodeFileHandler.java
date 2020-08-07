@@ -17,7 +17,15 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
 /**
- * TODO Add explanation how the file is encoded
+ * File structure:
+ * <p>
+ * Variable:
+ * <4 bytes describing how many bytes the variableName starting at next byte is>
+ * <x number of bytes for the variableName>
+ * <4 bytes describing how many bytes the variableContent starting at next byte is>
+ * SPECIAL CASE: ID - always the next 16 bytes
+ * Block:
+ * <BEGIN_BLOCK/END_BLOCK containers for Variables>
  */
 @Component
 public class BytecodeFileHandler implements IFileHandler<ByteBuffer> {
