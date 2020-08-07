@@ -67,7 +67,7 @@ public class DatabaseTests {
         insertRow("utf8Row", VariableType.UTF8, "utf8Data");
         insertRow("utf16Row", VariableType.UTF16, "utf16Data");
         insertRow("streamRow", VariableType.STREAM, new byte[]{0x00});
-        insertRow("blockRow", VariableType.BLOCK, null);
+        insertRow("blockRow", VariableType.BLOCK, new byte[]{0x00});
 
         Assert.assertEquals(6, contentRepository.count());
     }
@@ -92,7 +92,7 @@ public class DatabaseTests {
                 content = new StreamContent(variable, (byte[]) data);
                 break;
             case BLOCK:
-                content = new BlockContent(variable);
+                content = new BlockContent(variable, (byte[]) data);
                 break;
             default:
                 log.error("Invalid VariableType '{}'", type);
