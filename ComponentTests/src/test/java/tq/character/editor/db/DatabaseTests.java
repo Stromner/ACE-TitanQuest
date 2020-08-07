@@ -15,6 +15,8 @@ import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
 import tq.character.editor.database.entities.content.*;
 
+import java.nio.charset.StandardCharsets;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PropertySource("classpath::application.properties")
 @Transactional
@@ -29,6 +31,24 @@ public class DatabaseTests {
 
     @AfterEach
     public void tearDown() {
+    }
+
+    @Test
+    public void testUTF8Encoding() {
+        String s = new String(new byte[]{0x54, 0x65, 0x73, 0x74}, StandardCharsets.UTF_8); // Test
+        insertRow(s, VariableType.UTF8, "testData");
+        DataContent content = contentRepository.findByVariableName("Test");
+
+        Assert.assertEquals("Test", content.getVariable().getName());
+    }
+
+    @Test
+    public void testUTF16Encoding() {
+        String s = new String(new byte[]{0x00, 0x54, 0x00, 0x65, 0x00, 0x73, 0x00, 0x74}, StandardCharsets.UTF_16); // Test
+        insertRow(s, VariableType.UTF16, "testData");
+        DataContent content = contentRepository.findByVariableName("Test");
+
+        Assert.assertEquals("Test", content.getVariable().getName());
     }
 
     @Test
