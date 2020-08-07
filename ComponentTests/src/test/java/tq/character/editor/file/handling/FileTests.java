@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.data.file.handling.ICodec;
 import tq.character.editor.data.file.handling.IFileHandler;
-import tq.character.editor.data.file.handling.PlayerData;
 
 import java.nio.ByteBuffer;
 import java.util.Objects;
@@ -20,8 +18,6 @@ import java.util.Objects;
 public class FileTests {
     @Autowired
     IFileHandler<ByteBuffer> fileHandler;
-    @Autowired
-    ICodec<PlayerData, ByteBuffer> codec;
     @Autowired
     private Environment env;
 
@@ -39,13 +35,13 @@ public class FileTests {
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
 
         // WHEN (File is read in)
-        fileHandler.readFile(filePath);
+        fileHandler.loadFile(filePath);
         Assert.assertNotNull(fileHandler.getRawData());
 
         // AND (Converted into internal object)
-        codec.decode(fileHandler.getRawData());
+        fileHandler.parseFile(fileHandler.getRawData());
 
         // THEN (Data is ready to be used by the application)
-        Assert.assertNotNull(codec.getData());
+        // TODO Verify
     }
 }

@@ -6,9 +6,11 @@ package tq.character.editor.data.file.handling;
  * @param <V> Raw representation of the data
  */
 public interface IFileHandler<V> {
-    void readFile(String filePath);
+    V loadFile(String filePath);
 
-    void saveFile(V content, String filePath);
+    void parseFile(V rawData);
+
+    void saveFile(String filePath);
 
     V getRawData();
 }
