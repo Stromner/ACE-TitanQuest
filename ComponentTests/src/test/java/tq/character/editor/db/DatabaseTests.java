@@ -32,6 +32,15 @@ public class DatabaseTests {
     }
 
     @Test
+    public void testFindByVariableName() {
+        insertRow("testString", VariableType.UTF8, "testData");
+        DataContent content = contentRepository.findByVariableName("testString");
+
+        Assert.assertEquals("testString", content.getVariable().getName());
+        Assert.assertEquals(VariableType.UTF8, content.getVariable().getVariableType());
+    }
+
+    @Test
     public void testDataStructure() {
         insertRow("idRow", VariableType.ID, new byte[]{0x00});
         insertRow("intRow", VariableType.INT, 12);

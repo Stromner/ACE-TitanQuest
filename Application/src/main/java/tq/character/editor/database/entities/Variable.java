@@ -11,13 +11,13 @@ public class Variable {
     @Column(nullable = false)
     private VariableType variableType;
     @Column(nullable = false, length = 255)
-    private String variableName;
+    private String name;
 
     protected Variable() {
     }
 
     public Variable(String variableName, VariableType variableType) {
-        this.variableName = variableName;
+        this.name = variableName;
         this.variableType = variableType;
     }
 
@@ -33,12 +33,12 @@ public class Variable {
         this.variableType = variableType;
     }
 
-    public String getVariableName() {
-        return variableName;
+    public String getName() {
+        return name;
     }
 
-    public void setVariableName(String variableName) {
-        this.variableName = variableName;
+    public void getName(String variableName) {
+        this.name = variableName;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Variable {
         return "Variable{" +
                 "id=" + id +
                 ", variableType=" + variableType +
-                ", variableName='" + variableName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
