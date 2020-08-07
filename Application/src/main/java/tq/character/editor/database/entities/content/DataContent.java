@@ -4,8 +4,9 @@ import tq.character.editor.database.entities.Variable;
 
 import javax.persistence.*;
 
-@MappedSuperclass
-public class DataContent {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
+public abstract class DataContent { // Abstract so we don't get a DB table for this class
     @Id
     private Long id;
 
