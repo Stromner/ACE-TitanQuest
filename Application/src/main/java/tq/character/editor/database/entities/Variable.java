@@ -16,8 +16,8 @@ public class Variable {
     protected Variable() {
     }
 
-    public Variable(String variableName, VariableType variableType) {
-        this.name = variableName;
+    public Variable(String name, VariableType variableType) {
+        this.name = name;
         this.variableType = variableType;
     }
 
@@ -37,8 +37,8 @@ public class Variable {
         return name;
     }
 
-    public void getName(String variableName) {
-        this.name = variableName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
