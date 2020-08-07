@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.annotation.DirtiesContext;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PropertySource("classpath::application.properties")
-@Transactional
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class DatabaseTests {
     private static final Logger log = LoggerFactory.getLogger(DatabaseTests.class);
     @Autowired
@@ -67,8 +67,9 @@ public class DatabaseTests {
         insertRow("utf8Row", VariableType.UTF8, "utf8Data");
         insertRow("utf16Row", VariableType.UTF16, "utf16Data");
         insertRow("streamRow", VariableType.STREAM, new byte[]{0x00});
+        insertRow("blockRow", VariableType.BLOCK, null);
 
-        Assert.assertEquals(5, contentRepository.count());
+        Assert.assertEquals(6, contentRepository.count());
     }
 
     private <E> void insertRow(String variableName, VariableType type, E data) {
@@ -89,6 +90,9 @@ public class DatabaseTests {
                 break;
             case STREAM:
                 content = new StreamContent(variable, (byte[]) data);
+                break;
+            case BLOCK:
+                content = new BlockContent(variable);
                 break;
             default:
                 log.error("Invalid VariableType '{}'", type);

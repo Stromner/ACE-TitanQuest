@@ -5,5 +5,6 @@ public enum VariableType {
     UTF8,
     UTF16,
     ID,
-    STREAM
+    STREAM,
+    BLOCK
 }
