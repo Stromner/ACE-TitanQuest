@@ -1,5 +1,6 @@
 package tq.character.editor.file.handling;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,16 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import tq.character.editor.data.IDataHandler;
+import tq.character.editor.data.file.handling.ICodec;
+import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.file.handling.PlayerData;
 
+import java.nio.ByteBuffer;
 import java.util.Objects;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PropertySource("classpath::application.properties")
 public class FileTests {
     @Autowired
-    private IDataHandler<PlayerData> dataHandler;
+    IFileHandler<ByteBuffer> fileHandler;
+    @Autowired
+    ICodec<PlayerData, ByteBuffer> codec;
     @Autowired
     private Environment env;
 
@@ -29,13 +34,18 @@ public class FileTests {
     }
 
     @Test
-    public void testRead() {
-        // GIVEN (File to read in)
+    public void testReadInFile() {
+        // GIVEN (file to parse)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
 
-        // WHEN (A file is read a structured representation of the data is returned)
-        dataHandler.processFile(filePath);
+        // WHEN (File is read in)
+        fileHandler.readFile(filePath);
+        Assert.assertNotNull(fileHandler.getRawData());
 
-        // TODO Verify structure
+        // AND (Converted into internal object)
+        codec.decode(fileHandler.getRawData());
+
+        // THEN (Data is ready to be used by the application)
+        Assert.assertNotNull(codec.getData());
     }
 }
