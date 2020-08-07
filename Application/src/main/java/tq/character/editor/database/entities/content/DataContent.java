@@ -14,6 +14,14 @@ public class DataContent {
     @JoinColumn(nullable = false)
     private Variable variable;
 
+    protected DataContent() {
+
+    }
+
+    public DataContent(Variable variable) {
+        this.variable = variable;
+    }
+
     public Long getId() {
         return id;
     }

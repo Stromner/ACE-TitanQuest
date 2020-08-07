@@ -13,6 +13,14 @@ public class Variable {
     @Column(nullable = false, length = 255)
     private String variableName;
 
+    protected Variable() {
+    }
+
+    public Variable(String variableName, VariableType variableType) {
+        this.variableName = variableName;
+        this.variableType = variableType;
+    }
+
     public Long getId() {
         return id;
     }
