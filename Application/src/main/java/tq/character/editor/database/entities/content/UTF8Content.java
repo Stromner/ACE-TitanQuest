@@ -6,8 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity(name = "UTF8_CONTENT")
-public class UTF8Content extends DataContent {
-    @Column(nullable = false, length = 255)
+public class UTF8Content extends DataContent<String> {
+    @Column(name = "utf8DataContent", nullable = false, length = 255)
     private String dataContent;
 
     protected UTF8Content() {

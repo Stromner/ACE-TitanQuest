@@ -6,9 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class IntContent extends DataContent {
-    @Column(nullable = false)
-    private int dataContent;
+public class IntContent extends DataContent<Integer> {
+    @Column(name = "intDataContent", nullable = false)
+    private Integer dataContent;
 
     protected IntContent() {
 
@@ -19,11 +19,13 @@ public class IntContent extends DataContent {
         this.dataContent = dataContent;
     }
 
-    public int getDataContent() {
+    @Override
+    public Integer getDataContent() {
         return dataContent;
     }
 
-    public void setDataContent(int dataContent) {
+    @Override
+    public void setDataContent(Integer dataContent) {
         this.dataContent = dataContent;
     }
 

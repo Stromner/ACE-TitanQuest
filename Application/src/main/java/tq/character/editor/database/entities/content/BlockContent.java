@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import java.util.Arrays;
 
 @Entity
-public class BlockContent extends DataContent {
-    @Column(nullable = false, length = 19)
+public class BlockContent extends DataContent<byte[]> {
+    @Column(name = "blockDataContent", nullable = false, length = 19)
     private byte[] dataContent;
 
     protected BlockContent() {

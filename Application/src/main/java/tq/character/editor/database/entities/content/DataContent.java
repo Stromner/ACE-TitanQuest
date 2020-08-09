@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public abstract class DataContent { // Abstract so we don't get a DB table for this class
+public abstract class DataContent<E> { // Abstract so we don't get a DB table for this class
     @Id
     private Long id;
 

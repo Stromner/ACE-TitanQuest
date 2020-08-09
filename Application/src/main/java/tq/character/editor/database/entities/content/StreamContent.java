@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import java.util.Arrays;
 
 @Entity
-public class StreamContent extends DataContent {
-    @Column(nullable = false, length = 255)
+public class StreamContent extends DataContent<byte[]> {
+    @Column(name = "streamDataContent", nullable = false, length = 255)
     private byte[] dataContent;
 
     protected StreamContent() {
