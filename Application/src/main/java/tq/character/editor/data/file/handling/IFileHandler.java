@@ -1,6 +1,6 @@
 package tq.character.editor.data.file.handling;
 
-import tq.character.editor.data.file.handling.reader.IFileLoader;
+import tq.character.editor.data.file.handling.reader.IFileReader;
 import tq.character.editor.data.file.handling.writer.IFileWriter;
 
 /**
@@ -8,5 +8,5 @@ import tq.character.editor.data.file.handling.writer.IFileWriter;
  *
  * @param <V> Raw representation of the data
  */
-public interface IFileHandler<V> extends IFileLoader<V>, IFileWriter {
+public interface IFileHandler<V> extends IFileReader<V>, IFileWriter {
 }

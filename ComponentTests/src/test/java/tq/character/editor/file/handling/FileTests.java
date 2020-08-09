@@ -48,7 +48,7 @@ public class FileTests {
     }
 
     @Test
-    public void testWriteFile() throws IOException {
+    public void testSaveFile() throws IOException {
         // GIVEN (File has been loaded)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
         String createFilePath = "./target";

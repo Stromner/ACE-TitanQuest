@@ -5,7 +5,7 @@ package tq.character.editor.data.file.handling.reader;
  *
  * @param <V> Raw representation of the data
  */
-public interface IFileLoader<V> {
+public interface IFileReader<V> {
     V loadFile(String filePath);
 
     V getRawData();

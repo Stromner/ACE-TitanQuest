@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tq.character.editor.data.file.handling.VariablesGlossary;
-import tq.character.editor.data.file.handling.reader.IFileLoader;
+import tq.character.editor.data.file.handling.reader.IFileReader;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
@@ -30,8 +30,8 @@ import java.nio.ByteOrder;
  * <BEGIN_BLOCK/END_BLOCK containers for Variables>
  */
 @Component
-public class DatabaseFileLoader implements IFileLoader<ByteBuffer> {
-    private static final Logger log = LoggerFactory.getLogger(DatabaseFileLoader.class);
+public class DatabaseFileReader implements IFileReader<ByteBuffer> {
+    private static final Logger log = LoggerFactory.getLogger(DatabaseFileReader.class);
     private static final byte[] BEGIN_BLOCK =
             {0x0B, 0x00, 0x00, 0x00, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x5F, 0x62, 0x6C, 0x6F, 0x63, 0x6B, (byte) 0xCE, (byte) 0xFA, 0x1D, (byte) 0xB0};
     private static final byte[] END_BLOCK =
