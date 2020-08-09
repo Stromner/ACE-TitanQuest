@@ -1,11 +1,10 @@
-package tq.character.editor.data.file.handling.writer.db;
+package tq.character.editor.data.file.handling.writer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import tq.character.editor.data.file.handling.writer.IFileWriter;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.VariableType;
 import tq.character.editor.database.entities.content.DataContent;
