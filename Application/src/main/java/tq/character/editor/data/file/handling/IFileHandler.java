@@ -8,5 +8,5 @@ import tq.character.editor.data.file.handling.writer.IFileWriter;
  *
  * @param <V> Format for the raw data
  */
-public interface IFileHandler<V> extends IFileReader, IFileWriter {
+public interface IFileHandler<V> extends IFileReader<V>, IFileWriter {
 }
