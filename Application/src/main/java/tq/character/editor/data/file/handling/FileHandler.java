@@ -6,7 +6,7 @@ import tq.character.editor.data.file.handling.reader.IFileReader;
 import tq.character.editor.data.file.handling.writer.IFileWriter;
 
 @Component
-public class FileHandler<V> implements IFileHandler<V> {
+public class FileHandler<V> implements IFileHandler {
     @Autowired
     IFileReader<V> fileReader;
     @Autowired

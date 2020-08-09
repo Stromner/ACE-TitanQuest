@@ -6,7 +6,7 @@ import tq.character.editor.data.file.handling.writer.IFileWriter;
 /**
  * Interface for file management
  *
- * @param <V> Raw representation of the data
+ * @param <V> Format for the raw data
  */
-public interface IFileHandler<V> extends IFileReader<V>, IFileWriter {
+public interface IFileHandler<V> extends IFileReader, IFileWriter {
 }
