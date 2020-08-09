@@ -1,20 +1,22 @@
-package tq.character.editor.data.file.handling.bytecode;
+package tq.character.editor.data.file.handling.reader.db;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.file.handling.VariablesGlossary;
+import tq.character.editor.data.file.handling.reader.IFileLoader;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
 import tq.character.editor.database.entities.content.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * File structure:
@@ -28,48 +30,50 @@ import java.nio.charset.StandardCharsets;
  * <BEGIN_BLOCK/END_BLOCK containers for Variables>
  */
 @Component
-public class BytecodeFileHandler implements IFileHandler<ByteBuffer> {
-    private static final Logger log = LoggerFactory.getLogger(BytecodeFileHandler.class);
+public class DatabaseFileLoader implements IFileLoader<ByteBuffer> {
+    private static final Logger log = LoggerFactory.getLogger(DatabaseFileLoader.class);
     private static final byte[] BEGIN_BLOCK =
             {0x0B, 0x00, 0x00, 0x00, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x5F, 0x62, 0x6C, 0x6F, 0x63, 0x6B, (byte) 0xCE, (byte) 0xFA, 0x1D, (byte) 0xB0};
-    private ByteBuffer byteBuffer;
     private static final byte[] END_BLOCK =
-            {0x65, 0x6E, 0x64, 0x5F, 0x62, 0x6C, 0x6F, 0x63, 0x6B, (byte) 0xDE, (byte) 0xC0, (byte) 0xAD, (byte) 0xDE};
+            {0x09, 0x00, 0x00, 0x00, 0x65, 0x6E, 0x64, 0x5F, 0x62, 0x6C, 0x6F, 0x63, 0x6B, (byte) 0xDE, (byte) 0xC0, (byte) 0xAD, (byte) 0xDE};
+    private ByteBuffer byteBuffer;
     @Autowired
     private IDataContentRepository contentRepository;
 
     @Override
     public ByteBuffer loadFile(String filePath) {
-        File f;
-        FileInputStream fis;
-        try {
-            f = new File(filePath);
-            fis = new FileInputStream(f);
-        } catch (FileNotFoundException e) {
-            log.error("Filepath '{}' could not be opened", filePath);
-            throw new IllegalArgumentException("Filepath could not be opened");
-        }
+        readFile(filePath);
+        loadFileIntoDatabase(getRawData());
 
-        prepareByteBuffer((int) f.length());
-        return readData(fis);
-    }
-
-    @Override
-    public void saveFile(String filePath) {
-        // TODO
-    }
-
-    @Override
-    public void parseFile(ByteBuffer rawData) {
-        while (rawData.remaining() > 0) {
-            String variableName = readUTF8(rawData);
-            contentRepository.saveAndFlush(parseVariable(rawData, variableName));
-        }
+        return getRawData();
     }
 
     @Override
     public ByteBuffer getRawData() {
         return byteBuffer;
+    }
+
+    private void readFile(String filePath) {
+        File f;
+        FileInputStream fis;
+        try {
+            f = new File(filePath);
+            fis = new FileInputStream(f);
+
+            prepareByteBuffer((int) f.length());
+            readData(fis);
+            fis.close();
+        } catch (IOException e) {
+            log.error("Error while reading file {}", e.getMessage());
+            throw new RuntimeException(e.getCause());
+        }
+    }
+
+    private void loadFileIntoDatabase(ByteBuffer rawData) {
+        while (rawData.remaining() > 0) {
+            String variableName = readUTF8(rawData);
+            contentRepository.saveAndFlush(parseVariable(rawData, variableName));
+        }
     }
 
     private void prepareByteBuffer(int size) {
@@ -125,7 +129,7 @@ public class BytecodeFileHandler implements IFileHandler<ByteBuffer> {
     }
 
     private String readUTF16(ByteBuffer data) {
-        return new String(readBytes(data, true), StandardCharsets.UTF_16LE);
+        return new String(readBytes(data, true));
     }
 
     private byte[] readBytes(ByteBuffer data, boolean doubleLen) {

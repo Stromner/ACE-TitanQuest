@@ -35,6 +35,10 @@ public abstract class DataContent<E> { // Abstract so we don't get a DB table fo
         this.variable = variable;
     }
 
+    public abstract E getDataContent();
+
+    public abstract void setDataContent(E dataContent);
+
     @Override
     public String toString() {
         return "DataContent{" +
