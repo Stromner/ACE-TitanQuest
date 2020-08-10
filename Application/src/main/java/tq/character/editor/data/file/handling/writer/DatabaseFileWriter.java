@@ -79,6 +79,6 @@ public class DatabaseFileWriter implements IFileWriter {
         int size = isUTF16 ? s.length() / 2 : s.length();
 
         fos.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(size).array());
-        fos.write(new String(s.getBytes()).getBytes());
+        fos.write(s.getBytes());
     }
 }
