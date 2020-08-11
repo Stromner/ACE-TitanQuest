@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.test.annotation.DirtiesContext;
-import tq.character.editor.data.IDataAccess;
+import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.database.IDataContentRepository;
 
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ import java.util.Objects;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FileTests {
     @Autowired
-    IDataAccess<ByteBuffer> dataAccess;
+    IFileHandler<ByteBuffer> fileHandler;
     @Autowired
     private IDataContentRepository contentRepository;
     @Autowired
@@ -33,10 +33,10 @@ public class FileTests {
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
 
         // WHEN (File is loaded)
-        dataAccess.loadFile(filePath);
+        fileHandler.loadFile(filePath);
 
         // THEN (Data is ready to be used by the application)
-        Assert.assertNotNull(dataAccess.getRawData());
+        Assert.assertNotNull(fileHandler.getRawData());
         Assert.assertTrue(contentRepository.findAll().size() > 1);
     }
 
@@ -45,10 +45,10 @@ public class FileTests {
         // GIVEN (File has been loaded)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
         String createFilePath = "./target";
-        dataAccess.loadFile(filePath);
+        fileHandler.loadFile(filePath);
 
         // WHEN (File is saved)
-        dataAccess.saveFile(createFilePath);
+        fileHandler.saveFile(createFilePath);
 
         // THEN (Verify the new file is equal to the original file)
         InputStream originalStream = new FileInputStream(filePath);
