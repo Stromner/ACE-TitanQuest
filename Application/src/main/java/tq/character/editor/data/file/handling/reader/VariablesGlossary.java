@@ -1,4 +1,4 @@
-package tq.character.editor.data.file.handling;
+package tq.character.editor.data.file.handling.reader;
 
 import org.springframework.stereotype.Component;
 import tq.character.editor.database.entities.VariableType;
