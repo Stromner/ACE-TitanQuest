@@ -5,6 +5,8 @@ import tq.character.editor.data.player.IPlayerData;
 
 /**
  * Interfacing class for the data
+ *
+ * @param <V> Format for the raw data that IFileHandler uses
  */
-public interface IDataAccess extends IPlayerData, IFileHandler {
+public interface IDataAccess<V> extends IPlayerData, IFileHandler<V> {
 }

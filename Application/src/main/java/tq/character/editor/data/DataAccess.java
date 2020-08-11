@@ -1,31 +1,39 @@
 package tq.character.editor.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
 
-import java.nio.ByteBuffer;
-
-@Component
-public class DataAccess implements IDataAccess {
+@Service
+public class DataAccess<T> implements IDataAccess<T> {
     @Autowired
-    IFileHandler<ByteBuffer> fileHandler;
+    IFileHandler<T> fileHandler;
     @Autowired
     IPlayerData playerData;
 
     @Override
-    public ByteBuffer loadFile(String filePath) {
+    public T loadFile(String filePath) {
         return fileHandler.loadFile(filePath);
     }
 
     @Override
-    public ByteBuffer getRawData() {
+    public T getRawData() {
         return fileHandler.getRawData();
     }
 
     @Override
     public void saveFile(String filePath) {
         fileHandler.saveFile(filePath);
+    }
+
+    @Override
+    public String getPlayerName() {
+        return playerData.getPlayerName();
+    }
+
+    @Override
+    public void setPlayerName(String playerName) {
+        playerData.setPlayerName(playerName);
     }
 }
