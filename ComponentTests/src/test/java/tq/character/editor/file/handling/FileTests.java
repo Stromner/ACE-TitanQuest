@@ -1,15 +1,14 @@
 package tq.character.editor.file.handling;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.test.annotation.DirtiesContext;
-import tq.character.editor.data.file.handling.IFileHandler;
+import tq.character.editor.data.IDataAccess;
+import tq.character.editor.database.IDataContentRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,17 +21,11 @@ import java.util.Objects;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FileTests {
     @Autowired
-    IFileHandler<ByteBuffer> fileHandler;
+    IDataAccess<ByteBuffer> dataAccess;
+    @Autowired
+    private IDataContentRepository contentRepository;
     @Autowired
     private Environment env;
-
-    @BeforeEach
-    public void setUp() {
-    }
-
-    @AfterEach
-    public void tearDown() {
-    }
 
     @Test
     public void testLoadFile() {
@@ -40,11 +33,11 @@ public class FileTests {
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
 
         // WHEN (File is loaded)
-        fileHandler.loadFile(filePath);
-        Assert.assertNotNull(fileHandler.getRawData());
+        dataAccess.loadFile(filePath);
 
         // THEN (Data is ready to be used by the application)
-        // TODO Verify
+        Assert.assertNotNull(dataAccess.getRawData());
+        Assert.assertTrue(contentRepository.findAll().size() > 1);
     }
 
     @Test
@@ -52,10 +45,10 @@ public class FileTests {
         // GIVEN (File has been loaded)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
         String createFilePath = "./target";
-        fileHandler.loadFile(filePath);
+        dataAccess.loadFile(filePath);
 
         // WHEN (File is saved)
-        fileHandler.saveFile(createFilePath);
+        dataAccess.saveFile(createFilePath);
 
         // THEN (Verify the new file is equal to the original file)
         InputStream originalStream = new FileInputStream(filePath);

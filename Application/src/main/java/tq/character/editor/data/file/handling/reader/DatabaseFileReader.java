@@ -47,6 +47,7 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
     public ByteBuffer loadFile(String filePath) {
         readFile(filePath);
         loadFileIntoDatabase(getRawData());
+        log.info("Database initiated");
         eventPublisher.publishEvent(new DatabaseInitiatedEvent(this));
 
         return getRawData();
