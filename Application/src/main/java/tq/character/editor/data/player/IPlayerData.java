@@ -1,5 +1,7 @@
 package tq.character.editor.data.player;
 
+import tq.character.editor.core.errors.IllegalPlayerDataException;
+
 /**
  * Defines all the methods to get and modify a player character
  */
@@ -10,17 +12,17 @@ public interface IPlayerData {
 
     Integer getMoney();
 
-    void setMoney(Integer money);
+    void setMoney(Integer money) throws IllegalPlayerDataException;
 
     Integer getPlayerLevel();
 
-    void setPlayerLevel(Integer playerLevel);
+    void setPlayerLevel(Integer playerLevel) throws IllegalPlayerDataException;
 
     Integer getSkillPoints();
 
-    void setSkillPoints(Integer skillPoints);
+    void setSkillPoints(Integer skillPoints) throws IllegalPlayerDataException;
 
     Integer getAttributePoints();
 
-    void setAttributePoints(Integer attributePoints);
+    void setAttributePoints(Integer attributePoints) throws IllegalPlayerDataException;
 }
