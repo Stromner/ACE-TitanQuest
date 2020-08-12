@@ -64,7 +64,7 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public void setPlayerLevel(Integer playerLevel) throws IllegalPlayerDataException {
+    public void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException {
         int minLevel = 1;
         int maxLevel = 75;
         int skillPointsPerLevel = 3;
@@ -74,30 +74,27 @@ public class PlayerData implements IPlayerData {
         //  Ideally it would function like this:
         //   RuleSet ruleSet = new Ruleset... // Set it up somehow
         //   ruleSet.doTask(playerLevel.setDataContent, playerLevel); // Throws a detailed error if something goes wrong
-        if (playerLevel < minLevel || playerLevel > maxLevel) {
+        if (newLevel < minLevel || newLevel > maxLevel) {
             log.error("Could not set player level to {}, player level must be between {} and {}"
                     , playerLevel, minLevel, maxLevel);
             throw new IllegalPlayerDataException("Illegal player level");
         }
-        if (playerLevel < getPlayerLevel()) {
+        if (newLevel < getPlayerLevel()) {
             if (getSkillPoints() < skillPointsPerLevel) {
                 log.error("Could not lower player level to {}, not enough skill points {}"
                         , playerLevel, getSkillPoints());
                 throw new IllegalPlayerDataException("Not enough free skill points");
-            } else if (playerLevel < getPlayerLevel() && getAttributePoints() < attributePointsPerLevel) {
+            } else if (newLevel < getPlayerLevel() && getAttributePoints() < attributePointsPerLevel) {
                 log.error("Could not lower player level to {}, not enough attribute points {}"
                         , playerLevel, getAttributePoints());
                 throw new IllegalPlayerDataException("Not enough free attribute points");
             }
-
-            this.playerLevel.setDataContent(playerLevel);
-            this.skillPoints.setDataContent(getSkillPoints() - skillPointsPerLevel);
-            this.attributePoints.setDataContent(getAttributePoints() - attributePointsPerLevel);
-        } else if (playerLevel > getPlayerLevel()) {
-            this.playerLevel.setDataContent(playerLevel);
-            this.skillPoints.setDataContent(getSkillPoints() + skillPointsPerLevel);
-            this.attributePoints.setDataContent(getAttributePoints() + attributePointsPerLevel);
         }
+
+        int levelDiff = newLevel - getPlayerLevel();
+        playerLevel.setDataContent(newLevel);
+        skillPoints.setDataContent(getSkillPoints() + levelDiff * skillPointsPerLevel);
+        attributePoints.setDataContent(getAttributePoints() + levelDiff * attributePointsPerLevel);
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface IPlayerData {
 
     Integer getPlayerLevel();
 
-    void setPlayerLevel(Integer playerLevel) throws IllegalPlayerDataException;
+    void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException;
 
     Integer getSkillPoints();
 

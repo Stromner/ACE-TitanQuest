@@ -1,6 +1,7 @@
 package tq.character.editor.data;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,6 @@ public class DataTests {
     }
 
     @Test
-    // TODO This should probably be moved to a unit test
     public void testVerifyData() {
         String playerName = Utils.createUTF16String("TestChar");
         Integer money = 500;
@@ -58,27 +58,46 @@ public class DataTests {
 
     @Test
     @Transactional
-    // TODO This should probably be moved to a unit test
     public void testModifyData() throws IllegalPlayerDataException {
         String moddedPlayerName = Utils.createUTF16String("PlayerName");
         Integer moddedMoney = 1000;
         Integer moddedSkillPoints = 5;
         Integer moddedAttributePoints = 10;
-        Integer moddedPlayerLevel = 10;
         // GIVEN (File has been loaded)
 
         // WHEN (Data is modified)
         playerData.setPlayerName(moddedPlayerName);
         playerData.setMoney(moddedMoney);
         playerData.setSkillPoints(moddedSkillPoints);
-        playerData.setAttributePoints(moddedPlayerLevel);
-        playerData.setPlayerLevel(moddedPlayerLevel);
+        playerData.setAttributePoints(moddedAttributePoints);
 
         // THEN (Verify modified data is stored in database)
         Assert.assertEquals(moddedPlayerName, contentRepository.findByVariableName("myPlayerName").getDataContent());
         Assert.assertEquals(moddedMoney, contentRepository.findByVariableName("money").getDataContent());
         Assert.assertEquals(moddedSkillPoints, contentRepository.findByVariableName("skillPoints").getDataContent());
         Assert.assertEquals(moddedAttributePoints, contentRepository.findByVariableName("modifierPoints").getDataContent());
-        Assert.assertEquals(moddedPlayerLevel, contentRepository.findByVariableName("currentStats.charLevel").getDataContent());
+    }
+
+    @Test
+    public void testIncreaseLevel() throws IllegalPlayerDataException {
+        levelChange(playerData.getPlayerLevel() + 10);
+    }
+
+    @Test
+    public void testDecreaseLevel() throws IllegalPlayerDataException {
+        levelChange(playerData.getPlayerLevel() + 10);
+        levelChange(playerData.getPlayerLevel() - 1);
+    }
+
+    @Transactional
+    public void levelChange(Integer newLevel) throws IllegalPlayerDataException {
+        int levelDiff = newLevel - playerData.getPlayerLevel();
+        int curSkillPoints = playerData.getSkillPoints();
+        int curAttributePoints = playerData.getAttributePoints();
+
+        playerData.setPlayerLevel(newLevel);
+        Assertions.assertEquals(newLevel, playerData.getPlayerLevel());
+        Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getSkillPoints());
+        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, playerData.getAttributePoints());
     }
 }
