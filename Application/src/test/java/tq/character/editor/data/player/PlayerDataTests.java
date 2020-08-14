@@ -22,8 +22,6 @@ public class PlayerDataTests {
     private IntContent skillPoints;
     @Mock
     private IntContent attributePoints;
-    @Mock
-    private IntContent playerLevel;
     @InjectMocks
     private PlayerData unitUnderTest;
 
@@ -55,16 +53,11 @@ public class PlayerDataTests {
 
     @Test
     public void testSetPlayerLevelLackingSkillPoints() {
-        Mockito.when(playerLevel.getDataContent()).thenReturn(TYPICAL_LEVEL);
-
         Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setPlayerLevel(MINIMUM_LEVEL));
     }
 
     @Test
     public void testSetPlayerLevelLackingAttributePoints() {
-        Mockito.when(playerLevel.getDataContent()).thenReturn(TYPICAL_LEVEL);
-        Mockito.when(skillPoints.getDataContent()).thenReturn(-1);
-
         Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setPlayerLevel(MINIMUM_LEVEL));
     }
 
