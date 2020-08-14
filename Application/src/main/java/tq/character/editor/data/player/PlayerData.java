@@ -3,10 +3,13 @@ package tq.character.editor.data.player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
+import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.core.events.DatabaseInitiatedEvent;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.content.IntContent;
@@ -18,7 +21,18 @@ import tq.character.editor.database.entities.content.UTF16Content;
 public class PlayerData implements IPlayerData {
     private static final Logger log = LoggerFactory.getLogger(PlayerData.class);
     @Autowired
+    private ApplicationEventPublisher eventPublisher;
+    @Autowired
     private IDataContentRepository contentRepository;
+    @Value("${editor.player.min.level}")
+    private int minLevel;
+    @Value("${editor.player.max.level}")
+    private int maxLevel;
+    @Value("${editor.player.skills.gain}")
+    private int skillsGain;
+    @Value("${editor.player.attributes.gain}")
+    private int attributesGain;
+
     private UTF16Content playerName;
     private IntContent money;
     private IntContent skillPoints;
@@ -32,6 +46,9 @@ public class PlayerData implements IPlayerData {
         skillPoints = contentRepository.findByVariableName("skillPoints");
         attributePoints = contentRepository.findByVariableName("modifierPoints");
         playerLevel = contentRepository.findByVariableName("currentStats.charLevel");
+
+        eventPublisher.publishEvent(new DataLayerInitiatedEvent(this));
+        log.info("Data layer initiated");
     }
 
     @Override
@@ -65,26 +82,17 @@ public class PlayerData implements IPlayerData {
 
     @Override
     public void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException {
-        int minLevel = 1;
-        int maxLevel = 75;
-        int skillPointsPerLevel = 3;
-        int attributePointsPerLevel = 2;
-        // TODO Create a rules class to get rid of the hardcoded values
-        //  Properties would be an alternative but feels a bit too loose
-        //  Ideally it would function like this:
-        //   RuleSet ruleSet = new Ruleset... // Set it up somehow
-        //   ruleSet.doTask(playerLevel.setDataContent, playerLevel); // Throws a detailed error if something goes wrong
         if (newLevel < minLevel || newLevel > maxLevel) {
             log.error("Could not set player level to {}, player level must be between {} and {}"
                     , playerLevel, minLevel, maxLevel);
             throw new IllegalPlayerDataException("Illegal player level");
         }
         if (newLevel < getPlayerLevel()) {
-            if (getSkillPoints() < skillPointsPerLevel) {
+            if (getSkillPoints() < skillsGain) {
                 log.error("Could not lower player level to {}, not enough skill points {}"
                         , playerLevel, getSkillPoints());
                 throw new IllegalPlayerDataException("Not enough free skill points");
-            } else if (newLevel < getPlayerLevel() && getAttributePoints() < attributePointsPerLevel) {
+            } else if (newLevel < getPlayerLevel() && getAttributePoints() < attributesGain) {
                 log.error("Could not lower player level to {}, not enough attribute points {}"
                         , playerLevel, getAttributePoints());
                 throw new IllegalPlayerDataException("Not enough free attribute points");
@@ -93,8 +101,8 @@ public class PlayerData implements IPlayerData {
 
         int levelDiff = newLevel - getPlayerLevel();
         playerLevel.setDataContent(newLevel);
-        skillPoints.setDataContent(getSkillPoints() + levelDiff * skillPointsPerLevel);
-        attributePoints.setDataContent(getAttributePoints() + levelDiff * attributePointsPerLevel);
+        skillPoints.setDataContent(getSkillPoints() + levelDiff * skillsGain);
+        attributePoints.setDataContent(getAttributePoints() + levelDiff * attributesGain);
     }
 
     @Override

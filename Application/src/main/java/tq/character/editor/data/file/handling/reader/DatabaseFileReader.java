@@ -44,10 +44,13 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
 
     @Override
     public ByteBuffer loadFile(String filePath) {
+        log.info("Started parsing file...");
         readFile(filePath);
         loadFileIntoDatabase(getRawData());
+
         log.info("Database initiated");
         eventPublisher.publishEvent(new DatabaseInitiatedEvent(this));
+        log.info("Finished parsing file");
 
         return getRawData();
     }
