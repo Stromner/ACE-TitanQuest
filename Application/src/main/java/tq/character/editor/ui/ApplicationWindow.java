@@ -9,19 +9,12 @@ import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
+import tq.character.editor.ui.components.DataPanel;
 import tq.character.editor.ui.dialogs.WaitDialog;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.nio.ByteBuffer;
-
-/**
- * TODO REMOVE THIS
- * What's needed?
- * * Display data
- * ** Label to explain what the field means
- * ** Swing component for displaying the value of the field
- */
 
 @Component
 @ConditionalOnProperty(name = "editor.live.boot")
@@ -37,6 +30,7 @@ public class ApplicationWindow {
     private JFrame frame;
     private JFileChooser fileChooser;
     private WaitDialog waitDialog;
+    private DataPanel dataPanel;
 
     @PostConstruct
     public void init() {
@@ -51,7 +45,12 @@ public class ApplicationWindow {
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
+        dataPanel = new DataPanel(playerData);
+        frame.add(dataPanel);
+
         waitDialog.closeWaitDialog();
+
+        frame.revalidate();
     }
 
     private void createFrame() {
@@ -112,6 +111,7 @@ public class ApplicationWindow {
         if (fileChooser.showSaveDialog(frame) != JFileChooser.CANCEL_OPTION) {
             waitDialog.showWaitDialog("Saving file, please wait...");
             fileHandler.saveFile(fileChooser.getSelectedFile().getAbsolutePath());
+            waitDialog.closeWaitDialog();
         }
     }
 
