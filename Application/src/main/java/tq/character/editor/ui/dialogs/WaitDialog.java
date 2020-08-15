@@ -17,7 +17,7 @@ public class WaitDialog extends JDialog {
             remove(waitLabel);
         }
         waitLabel = new JLabel(displayText);
-        add(new JLabel(displayText));
+        add(waitLabel);
         pack();
         setLocationRelativeTo(getParent());
 
