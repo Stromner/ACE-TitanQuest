@@ -45,6 +45,7 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
     @Override
     public ByteBuffer loadFile(String filePath) {
         log.info("Started parsing file...");
+        contentRepository.deleteAll();
         readFile(filePath);
         loadFileIntoDatabase(getRawData());
 

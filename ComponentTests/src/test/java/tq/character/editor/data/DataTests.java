@@ -89,8 +89,14 @@ public class DataTests {
         levelChange(playerData.getPlayerLevel() - 1);
     }
 
+    @Test
+    public void testDatabaseClearedMultipleReads() {
+        String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
+        fileHandler.loadFile(filePath);
+    }
+
     @Transactional
-    public void levelChange(Integer newLevel) throws IllegalPlayerDataException {
+    private void levelChange(Integer newLevel) throws IllegalPlayerDataException {
         int levelDiff = newLevel - playerData.getPlayerLevel();
         int curSkillPoints = playerData.getSkillPoints();
         int curAttributePoints = playerData.getAttributePoints();
