@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
-import tq.character.editor.ui.components.WaitPanel;
+import tq.character.editor.ui.dialogs.WaitDialog;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
 @ConditionalOnProperty(name = "editor.live.boot")
 public class ApplicationWindow {
     @Value("classpath:ui/ApplicationIcon.png")
-    Resource applicationIcon;
+    private Resource applicationIcon;
 
     @Autowired
     IFileHandler<ByteBuffer> fileHandler;
@@ -36,36 +36,33 @@ public class ApplicationWindow {
 
     private JFrame frame;
     private JFileChooser fileChooser;
-    private WaitPanel waitPanel;
+    private WaitDialog waitDialog;
 
     @PostConstruct
     public void init() {
         createFrame();
-        configureFrame(frame);
         createFileChooser();
         createMenu();
-        createPanels();
+
+        waitDialog = new WaitDialog(frame);
 
         frame.setVisible(true);
     }
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
-        waitPanel.closeWaitDialog();
+        waitDialog.closeWaitDialog();
     }
 
     private void createFrame() {
         frame = new JFrame("TQCharacterEditor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
+
+        configureFrame();
     }
 
-    private void createPanels() {
-        waitPanel = new WaitPanel(frame);
-        frame.add(waitPanel);
-    }
-
-    private void configureFrame(JFrame frame) {
+    private void configureFrame() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             ImageIcon frameIcon = new ImageIcon(applicationIcon.getURL());
@@ -75,6 +72,11 @@ public class ApplicationWindow {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void createFileChooser() {
+        fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
     private void createMenu() {
@@ -99,21 +101,16 @@ public class ApplicationWindow {
         frame.setJMenuBar(menuBar);
     }
 
-    private void createFileChooser() {
-        fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    }
-
     private void openFileChooser() {
         if (fileChooser.showOpenDialog(frame) != JFileChooser.CANCEL_OPTION) {
-            waitPanel.showWaitDialog("Parsing file, please wait...");
+            waitDialog.showWaitDialog("Parsing file, please wait...");
             fileHandler.loadFile(fileChooser.getSelectedFile().getAbsolutePath());
         }
     }
 
     private void saveFileChooser() {
         if (fileChooser.showSaveDialog(frame) != JFileChooser.CANCEL_OPTION) {
-            waitPanel.showWaitDialog("Saving file, please wait...");
+            waitDialog.showWaitDialog("Saving file, please wait...");
             fileHandler.saveFile(fileChooser.getSelectedFile().getAbsolutePath());
         }
     }
