@@ -2,16 +2,17 @@ package tq.character.editor.ui.components.partial;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import tq.character.editor.data.player.IPlayerData;
+import tq.character.editor.ui.utils.FormatCreator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.lang.reflect.Method;
 
 public class TwoTextFieldsPanel<T> extends JPanel {
     private final Label fieldName;
-    private final JTextField fieldValue;
+    private final JFormattedTextField fieldValue;
     private final T defaultValue;
 
     public TwoTextFieldsPanel(String fieldName, T fieldValue) {
@@ -20,51 +21,25 @@ public class TwoTextFieldsPanel<T> extends JPanel {
         setLayout(new GridLayout(1, 0));
 
         this.fieldName = new Label(fieldName);
-        if (fieldValue instanceof String) {
-            this.fieldValue = new JTextField((String) fieldValue);
-        } else {
-            this.fieldValue = new JTextField(String.valueOf(fieldValue));
-        }
+        this.fieldValue = new JFormattedTextField(FormatCreator.buildFormatter(fieldValue));
+        this.fieldValue.setValue(fieldValue);
 
         add(this.fieldName);
         add(this.fieldValue);
     }
 
-    public void setFieldValueListener(IPlayerData instance, Method method) {
-        fieldValue.addKeyListener(new KeyListener() {
+    public void createListener(IPlayerData instance, Method method) {
+        fieldValue.addFocusListener(new FocusListener() {
+
             @Override
-            public void keyTyped(KeyEvent e) {
-                if (isValidInput(e)) {
-                    executeMethod(instance, method);
-                }
+            public void focusGained(FocusEvent e) {
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {
-                if (isValidInput(e)) {
-                    executeMethod(instance, method);
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (isValidInput(e)) {
-                    executeMethod(instance, method);
-                }
+            public void focusLost(FocusEvent e) {
+                executeMethod(instance, method);
             }
         });
-    }
-
-    private boolean isValidInput(KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && !Character.isLetter(c)) {
-            return true;
-        }
-        if (NumberUtils.isCreatable(fieldValue.getText()) && !Character.isDigit(c)) {
-            evt.consume();
-            return false;
-        }
-        return true;
     }
 
     private void executeMethod(IPlayerData instance, Method method) {

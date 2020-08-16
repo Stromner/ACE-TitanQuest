@@ -35,23 +35,23 @@ public class DataPanel extends JPanel {
         Class c = playerData.getClass();
 
         playerName = new TwoTextFieldsPanel("Character name", playerData.getPlayerName());
-        playerName.setFieldValueListener(playerData, c.getMethod("setPlayerName", String.class));
+        playerName.createListener(playerData, c.getMethod("setPlayerName", String.class));
         add(playerName);
 
         playerLevel = new TwoTextFieldsPanel("Player level", playerData.getPlayerLevel());
-        playerLevel.setFieldValueListener(playerData, c.getMethod("setPlayerLevel", Integer.class));
+        playerLevel.createListener(playerData, c.getMethod("setPlayerLevel", Integer.class));
         add(playerLevel);
 
         money = new TwoTextFieldsPanel("Money", playerData.getMoney());
-        money.setFieldValueListener(playerData, c.getMethod("setMoney", Integer.class));
+        money.createListener(playerData, c.getMethod("setMoney", Integer.class));
         add(money);
 
         freeSkillPoints = new TwoTextFieldsPanel("Free skill points", playerData.getSkillPoints());
-        freeSkillPoints.setFieldValueListener(playerData, c.getMethod("setSkillPoints", Integer.class));
+        freeSkillPoints.createListener(playerData, c.getMethod("setSkillPoints", Integer.class));
         add(freeSkillPoints);
 
         freeAttributePoints = new TwoTextFieldsPanel("Free attribute points", playerData.getAttributePoints());
-        freeAttributePoints.setFieldValueListener(playerData, c.getMethod("setAttributePoints", Integer.class));
+        freeAttributePoints.createListener(playerData, c.getMethod("setAttributePoints", Integer.class));
         add(freeAttributePoints);
     }
 }
