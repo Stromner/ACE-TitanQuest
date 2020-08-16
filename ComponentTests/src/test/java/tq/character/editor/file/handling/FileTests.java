@@ -44,7 +44,7 @@ public class FileTests {
     public void testSaveFile() throws IOException {
         // GIVEN (File has been loaded)
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
-        String createFilePath = "./target";
+        String createFilePath = "./target/Player.chr";
         fileHandler.loadFile(filePath);
 
         // WHEN (File is saved)
@@ -52,7 +52,7 @@ public class FileTests {
 
         // THEN (Verify the new file is equal to the original file)
         InputStream originalStream = new FileInputStream(filePath);
-        InputStream createdFileStream = new FileInputStream(createFilePath + '/' + "Player.chr");
+        InputStream createdFileStream = new FileInputStream(createFilePath);
 
         int originalByte;
         int createdFileByte;

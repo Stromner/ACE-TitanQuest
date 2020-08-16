@@ -18,15 +18,12 @@ import java.nio.ByteOrder;
 @Component
 public class DatabaseFileWriter implements IFileWriter {
     private static final Logger log = LoggerFactory.getLogger(DatabaseFileWriter.class);
-    private static final String SAVE_FILE_NAME = "Player.chr";
     @Autowired
     private IDataContentRepository contentRepository;
 
     @Override
     public void saveFile(String filePath) {
         File file = new File(filePath);
-        file.mkdirs();
-        file = new File(filePath + '/' + SAVE_FILE_NAME);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             for (DataContent content : contentRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))) {
