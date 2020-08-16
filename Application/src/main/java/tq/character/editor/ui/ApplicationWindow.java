@@ -46,7 +46,7 @@ public class ApplicationWindow {
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
         dataPanel = new DataPanel(playerData);
-        frame.add(dataPanel);
+        frame.setContentPane(dataPanel);
 
         waitDialog.closeWaitDialog();
 
@@ -79,6 +79,7 @@ public class ApplicationWindow {
     }
 
     private void createMenu() {
+        JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menu = new JMenu("File");

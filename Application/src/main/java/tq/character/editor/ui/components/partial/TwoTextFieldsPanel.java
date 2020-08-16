@@ -17,7 +17,7 @@ public class TwoTextFieldsPanel<T> extends JPanel {
     public TwoTextFieldsPanel(String fieldName, T fieldValue) {
         super();
         defaultValue = fieldValue;
-        this.setLayout(new GridLayout(1, 0));
+        setLayout(new GridLayout(1, 0));
 
         this.fieldName = new Label(fieldName);
         if (fieldValue instanceof String) {
