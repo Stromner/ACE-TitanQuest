@@ -23,6 +23,7 @@ public class DatabaseFileWriter implements IFileWriter {
 
     @Override
     public void saveFile(String filePath) {
+        log.info("Started saving file...");
         File file = new File(filePath);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -32,7 +33,9 @@ public class DatabaseFileWriter implements IFileWriter {
             }
             fos.flush();
             fos.close();
+            log.info("Finished saving file");
         } catch (IOException e) {
+            log.error("Error while saving {}", e.getMessage());
             throw new RuntimeException(e.getCause());
         }
     }
