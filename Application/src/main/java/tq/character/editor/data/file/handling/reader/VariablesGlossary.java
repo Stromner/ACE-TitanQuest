@@ -41,10 +41,13 @@ public class VariablesGlossary {
         glossaryMap.put("numTutorialPagesV2", VariableType.INT);
         glossaryMap.put("currentPageV2", VariableType.INT);
         glossaryMap.put("teleportUIDsSize", VariableType.INT);
+        glossaryMap.put("teleportUID", VariableType.ID);
         glossaryMap.put("versionCheckMovementInfo", VariableType.INT);
         glossaryMap.put("markerUIDsSize", VariableType.INT);
+        glossaryMap.put("markerUID", VariableType.ID);
         glossaryMap.put("versionCheckRespawnInfo", VariableType.INT);
         glossaryMap.put("respawnUIDsSize", VariableType.INT);
+        glossaryMap.put("respawnUID", VariableType.ID);
         glossaryMap.put("versionRespawnPoint", VariableType.INT);
         glossaryMap.put("versionCheckTeleportInfo", VariableType.INT);
         glossaryMap.put("strategicMovementRespawnPoint[i]", VariableType.ID);
@@ -138,5 +141,14 @@ public class VariablesGlossary {
         glossaryMap.put("isItemSkill", VariableType.INT);
         glossaryMap.put("itemName", VariableType.UTF8);
         glossaryMap.put("description", VariableType.STREAM);
+        glossaryMap.put("pointX", VariableType.INT);
+        glossaryMap.put("pointY", VariableType.INT);
+        // Block list 10
+        glossaryMap.put("scrollName", VariableType.UTF8);
+        glossaryMap.put("bitmapUpName", VariableType.UTF8);
+        glossaryMap.put("bitmapDownName", VariableType.UTF8);
+        glossaryMap.put("defaultText", VariableType.UTF8);
+        // Older versions
+        glossaryMap.put("storedDefaultType", VariableType.INT);
     }
 }
