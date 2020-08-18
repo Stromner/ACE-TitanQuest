@@ -20,10 +20,12 @@ public class StreamContent extends DataContent<byte[]> {
         this.dataContent = dataContent;
     }
 
+    @Override
     public byte[] getDataContent() {
         return dataContent;
     }
 
+    @Override
     public void setDataContent(byte[] dataContent) {
         this.dataContent = dataContent;
     }

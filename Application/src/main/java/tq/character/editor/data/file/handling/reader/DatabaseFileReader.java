@@ -89,9 +89,9 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
     }
 
-    private <E extends InputStream> ByteBuffer readData(E dataStream) {
+    private <E extends InputStream> void readData(E dataStream) {
         try {
-            return byteBuffer
+            byteBuffer
                     .put(dataStream.readAllBytes())
                     .rewind();
         } catch (IOException e) {
@@ -99,7 +99,7 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
         }
     }
 
-    private DataContent parseVariable(ByteBuffer data, String variableName) {
+    private DataContent<?> parseVariable(ByteBuffer data, String variableName) {
         VariableType variableType = VariablesGlossary.lookupVariable(variableName);
         if (variableType == null) {
             log.error("Could not find variableName '{}' in the glossary", variableName);
@@ -109,10 +109,12 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
         return parseDataContent(data, variable);
     }
 
-    private DataContent parseDataContent(ByteBuffer data, Variable variable) {
+    private DataContent<?> parseDataContent(ByteBuffer data, Variable variable) {
         switch (variable.getVariableType()) {
             case INT:
                 return new IntContent(variable, data.getInt());
+            case FLOAT:
+                return new FloatContent(variable, data.getFloat());
             case UTF8:
                 return new UTF8Content(variable, readUTF8(data));
             case UTF16:

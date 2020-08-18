@@ -59,7 +59,7 @@ public class VariablesGlossary {
         glossaryMap.put("playerTexture", VariableType.UTF8);
         glossaryMap.put("itemsFoundOverLifetimeUniqueTotal", VariableType.INT);
         glossaryMap.put("itemsFoundOverLifetimeRandomizedTotal", VariableType.INT);
-        glossaryMap.put("temp", VariableType.INT);
+        glossaryMap.put("temp", VariableType.FLOAT);
         glossaryMap.put("hasBeenInGame", VariableType.INT);
         // Block list 2 'Skills meta'
         glossaryMap.put("max", VariableType.INT);

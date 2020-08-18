@@ -19,10 +19,12 @@ public class UTF8Content extends DataContent<String> {
         this.dataContent = dataContent;
     }
 
+    @Override
     public String getDataContent() {
         return dataContent;
     }
 
+    @Override
     public void setDataContent(String dataContent) {
         this.dataContent = dataContent;
     }

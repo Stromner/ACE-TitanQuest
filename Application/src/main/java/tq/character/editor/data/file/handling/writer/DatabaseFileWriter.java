@@ -27,7 +27,7 @@ public class DatabaseFileWriter implements IFileWriter {
         File file = new File(filePath);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            for (DataContent content : contentRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))) {
+            for (DataContent<?> content : contentRepository.findAll(Sort.by(Sort.Direction.ASC, "id"))) {
                 saveVariableName(fos, content);
                 saveDataContent(fos, content);
             }
@@ -40,7 +40,7 @@ public class DatabaseFileWriter implements IFileWriter {
         }
     }
 
-    private void saveVariableName(FileOutputStream fos, DataContent content) throws IOException {
+    private void saveVariableName(FileOutputStream fos, DataContent<?> content) throws IOException {
         String varName = content.getVariable().getName();
         if (content.getVariable().getVariableType() != VariableType.BLOCK) {
             fos.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(varName.length()).array());
@@ -48,11 +48,15 @@ public class DatabaseFileWriter implements IFileWriter {
         }
     }
 
-    private void saveDataContent(FileOutputStream fos, DataContent content) throws IOException {
+    private void saveDataContent(FileOutputStream fos, DataContent<?> content) throws IOException {
         switch (content.getVariable().getVariableType()) {
             case INT:
                 Integer i = (Integer) content.getDataContent();
                 fos.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(i).array());
+                break;
+            case FLOAT:
+                Float f = (Float) content.getDataContent();
+                fos.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putFloat(f).array());
                 break;
             case UTF8:
                 saveString(fos, (String) content.getDataContent(), false);
