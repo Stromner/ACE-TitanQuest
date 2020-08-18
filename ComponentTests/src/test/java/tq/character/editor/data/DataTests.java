@@ -51,8 +51,8 @@ public class DataTests {
         // THEN (Verify validity of the loaded data)
         Assert.assertEquals(playerName, playerData.getPlayerName());
         Assert.assertEquals(money, playerData.getMoney());
-        Assert.assertEquals(skillPoints, playerData.getSkillPoints());
-        Assert.assertEquals(attributePoints, playerData.getAttributePoints());
+        Assert.assertEquals(skillPoints, playerData.getUnspentSkillPoints());
+        Assert.assertEquals(attributePoints, playerData.getUnspentAttributePoints());
         Assert.assertEquals(playerLevel, playerData.getPlayerLevel());
     }
 
@@ -68,8 +68,8 @@ public class DataTests {
         // WHEN (Data is modified)
         playerData.setPlayerName(moddedPlayerName);
         playerData.setMoney(moddedMoney);
-        playerData.setSkillPoints(moddedSkillPoints);
-        playerData.setAttributePoints(moddedAttributePoints);
+        playerData.setUnspentSkillPoints(moddedSkillPoints);
+        playerData.setUnspentAttributePoints(moddedAttributePoints);
 
         // THEN (Verify modified data is stored in database)
         Assert.assertEquals(moddedPlayerName, contentRepository.findByVariableName("myPlayerName").getDataContent());
@@ -98,12 +98,12 @@ public class DataTests {
     @Transactional
     private void levelChange(Integer newLevel) throws IllegalPlayerDataException {
         int levelDiff = newLevel - playerData.getPlayerLevel();
-        int curSkillPoints = playerData.getSkillPoints();
-        int curAttributePoints = playerData.getAttributePoints();
+        int curSkillPoints = playerData.getUnspentSkillPoints();
+        int curAttributePoints = playerData.getUnspentAttributePoints();
 
         playerData.setPlayerLevel(newLevel);
         Assertions.assertEquals(newLevel, playerData.getPlayerLevel());
-        Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getSkillPoints());
-        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, playerData.getAttributePoints());
+        Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getUnspentSkillPoints());
+        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, playerData.getUnspentAttributePoints());
     }
 }

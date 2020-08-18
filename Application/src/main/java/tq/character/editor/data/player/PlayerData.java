@@ -88,30 +88,30 @@ public class PlayerData implements IPlayerData {
             throw new IllegalPlayerDataException("Illegal player level");
         }
         if (newLevel < getPlayerLevel()) {
-            if (getSkillPoints() < skillsGain) {
+            if (getUnspentSkillPoints() < skillsGain) {
                 log.error("Could not lower player level to {}, not enough skill points {}"
-                        , playerLevel, getSkillPoints());
+                        , playerLevel, getUnspentSkillPoints());
                 throw new IllegalPlayerDataException("Not enough free skill points");
-            } else if (newLevel < getPlayerLevel() && getAttributePoints() < attributesGain) {
+            } else if (newLevel < getPlayerLevel() && getUnspentAttributePoints() < attributesGain) {
                 log.error("Could not lower player level to {}, not enough attribute points {}"
-                        , playerLevel, getAttributePoints());
+                        , playerLevel, getUnspentAttributePoints());
                 throw new IllegalPlayerDataException("Not enough free attribute points");
             }
         }
 
         int levelDiff = newLevel - getPlayerLevel();
         playerLevel.setDataContent(newLevel);
-        skillPoints.setDataContent(getSkillPoints() + levelDiff * skillsGain);
-        attributePoints.setDataContent(getAttributePoints() + levelDiff * attributesGain);
+        skillPoints.setDataContent(getUnspentSkillPoints() + levelDiff * skillsGain);
+        attributePoints.setDataContent(getUnspentAttributePoints() + levelDiff * attributesGain);
     }
 
     @Override
-    public Integer getSkillPoints() {
+    public Integer getUnspentSkillPoints() {
         return skillPoints.getDataContent();
     }
 
     @Override
-    public void setSkillPoints(Integer skillPoints) throws IllegalPlayerDataException {
+    public void setUnspentSkillPoints(Integer skillPoints) throws IllegalPlayerDataException {
         if (skillPoints < 0) {
             log.error("Could not set skill points to {}, skill points must be a positive amount", skillPoints);
             throw new IllegalPlayerDataException("Skill points can not be a negative amount");
@@ -120,12 +120,12 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public Integer getAttributePoints() {
+    public Integer getUnspentAttributePoints() {
         return attributePoints.getDataContent();
     }
 
     @Override
-    public void setAttributePoints(Integer attributePoints) throws IllegalPlayerDataException {
+    public void setUnspentAttributePoints(Integer attributePoints) throws IllegalPlayerDataException {
         if (attributePoints < 0) {
             log.error("Could not set attribute points to {}, attribute points must be a positive amount", attributePoints);
             throw new IllegalPlayerDataException("Attribute points can not be a negative amount");

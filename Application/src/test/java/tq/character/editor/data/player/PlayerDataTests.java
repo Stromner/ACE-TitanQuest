@@ -67,13 +67,13 @@ public class PlayerDataTests {
         Mockito.doCallRealMethod().when(skillPoints).setDataContent(Mockito.anyInt());
 
         Integer skillPoints = 5;
-        unitUnderTest.setSkillPoints(skillPoints);
-        Assertions.assertEquals(skillPoints, unitUnderTest.getSkillPoints());
+        unitUnderTest.setUnspentSkillPoints(skillPoints);
+        Assertions.assertEquals(skillPoints, unitUnderTest.getUnspentSkillPoints());
     }
 
     @Test
     public void testSetIllegalSkillPoints() {
-        Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setSkillPoints(NEGATIVE_AMOUNT));
+        Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setUnspentSkillPoints(NEGATIVE_AMOUNT));
     }
 
     @Test
@@ -82,12 +82,12 @@ public class PlayerDataTests {
         Mockito.doCallRealMethod().when(attributePoints).setDataContent(Mockito.anyInt());
 
         Integer attributePoints = 10;
-        unitUnderTest.setAttributePoints(attributePoints);
-        Assertions.assertEquals(attributePoints, unitUnderTest.getAttributePoints());
+        unitUnderTest.setUnspentAttributePoints(attributePoints);
+        Assertions.assertEquals(attributePoints, unitUnderTest.getUnspentAttributePoints());
     }
 
     @Test
     public void testSetIllegalAttributePoints() {
-        Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setAttributePoints(NEGATIVE_AMOUNT));
+        Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setUnspentAttributePoints(NEGATIVE_AMOUNT));
     }
 }

@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class DataPanel extends JPanel {
     private final IPlayerData playerData;
-    private TwoTextFieldsPanel playerName;
-    private TwoTextFieldsPanel playerLevel;
-    private TwoTextFieldsPanel money;
-    private TwoTextFieldsPanel freeSkillPoints;
-    private TwoTextFieldsPanel freeAttributePoints;
+    private TwoTextFieldsPanel<String> playerName;
+    private TwoTextFieldsPanel<Integer> playerLevel;
+    private TwoTextFieldsPanel<Integer> money;
+    private TwoTextFieldsPanel<Integer> unspentSkillPoints;
+    private TwoTextFieldsPanel<Integer> unspentAttributePoints;
 
     public DataPanel(IPlayerData playerData) {
         super();
@@ -32,26 +32,26 @@ public class DataPanel extends JPanel {
     }
 
     private void renderData() throws NoSuchMethodException {
-        Class c = playerData.getClass();
+        Class<?> c = playerData.getClass();
 
-        playerName = new TwoTextFieldsPanel("Character name", playerData.getPlayerName());
+        playerName = new TwoTextFieldsPanel<>("Character name", playerData.getPlayerName());
         playerName.createListener(playerData, c.getMethod("setPlayerName", String.class));
         add(playerName);
 
-        playerLevel = new TwoTextFieldsPanel("Player level", playerData.getPlayerLevel());
+        playerLevel = new TwoTextFieldsPanel<>("Player level", playerData.getPlayerLevel());
         playerLevel.createListener(playerData, c.getMethod("setPlayerLevel", Integer.class));
         add(playerLevel);
 
-        money = new TwoTextFieldsPanel("Money", playerData.getMoney());
+        money = new TwoTextFieldsPanel<>("Money", playerData.getMoney());
         money.createListener(playerData, c.getMethod("setMoney", Integer.class));
         add(money);
 
-        freeSkillPoints = new TwoTextFieldsPanel("Free skill points", playerData.getSkillPoints());
-        freeSkillPoints.createListener(playerData, c.getMethod("setSkillPoints", Integer.class));
-        add(freeSkillPoints);
+        unspentSkillPoints = new TwoTextFieldsPanel<>("Unspent skill points", playerData.getUnspentSkillPoints());
+        unspentSkillPoints.createListener(playerData, c.getMethod("setUnspentSkillPoints", Integer.class));
+        add(unspentSkillPoints);
 
-        freeAttributePoints = new TwoTextFieldsPanel("Free attribute points", playerData.getAttributePoints());
-        freeAttributePoints.createListener(playerData, c.getMethod("setAttributePoints", Integer.class));
-        add(freeAttributePoints);
+        unspentAttributePoints = new TwoTextFieldsPanel<>("Unspent attribute points", playerData.getUnspentAttributePoints());
+        unspentAttributePoints.createListener(playerData, c.getMethod("setUnspentAttributePoints", Integer.class));
+        add(unspentAttributePoints);
     }
 }

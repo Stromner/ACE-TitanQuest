@@ -18,11 +18,11 @@ public interface IPlayerData {
 
     void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException;
 
-    Integer getSkillPoints();
+    Integer getUnspentSkillPoints();
 
-    void setSkillPoints(Integer skillPoints) throws IllegalPlayerDataException;
+    void setUnspentSkillPoints(Integer skillPoints) throws IllegalPlayerDataException;
 
-    Integer getAttributePoints();
+    Integer getUnspentAttributePoints();
 
-    void setAttributePoints(Integer attributePoints) throws IllegalPlayerDataException;
+    void setUnspentAttributePoints(Integer attributePoints) throws IllegalPlayerDataException;
 }
