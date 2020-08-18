@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
-import tq.character.editor.Utils;
+import tq.character.editor.TestUtils;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
@@ -44,7 +44,7 @@ public class DataTests {
 
     @Test
     public void testVerifyData() {
-        String playerName = Utils.createUTF16String("TestChar");
+        String playerName = TestUtils.createUTF16String("TestChar");
         Integer money = 500;
         Integer skillPoints = 0;
         Integer attributePoints = 0;
@@ -62,7 +62,7 @@ public class DataTests {
     @Test
     @Transactional
     public void testModifyData() throws IllegalPlayerDataException {
-        String moddedPlayerName = Utils.createUTF16String("PlayerName");
+        String moddedPlayerName = TestUtils.createUTF16String("PlayerName");
         Integer moddedMoney = 1000;
         Integer moddedSkillPoints = 5;
         Integer moddedAttributePoints = 10;
