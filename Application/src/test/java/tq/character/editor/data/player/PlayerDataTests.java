@@ -13,15 +13,12 @@ import tq.character.editor.database.entities.content.IntContent;
 @ExtendWith(MockitoExtension.class)
 public class PlayerDataTests {
     private static final Integer NEGATIVE_AMOUNT = -1;
-    private static final Integer TYPICAL_LEVEL = 10;
     private static final Integer MINIMUM_LEVEL = 1;
 
     @Mock
     private IntContent money;
     @Mock
-    private IntContent skillPoints;
-    @Mock
-    private IntContent attributePoints;
+    private IntContent unspentSkillPoints;
     @InjectMocks
     private PlayerData unitUnderTest;
 
@@ -39,6 +36,8 @@ public class PlayerDataTests {
     public void testSetIllegalMoney() {
         Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setMoney(NEGATIVE_AMOUNT));
     }
+
+    // testIncPlayerLevel & testDecPlayerLevel exists as component tests
 
     @Test
     public void testSetPlayerLevelNegative() {
@@ -63,8 +62,8 @@ public class PlayerDataTests {
 
     @Test
     public void testSetValidSkillPoints() throws IllegalPlayerDataException {
-        Mockito.when(skillPoints.getDataContent()).thenCallRealMethod();
-        Mockito.doCallRealMethod().when(skillPoints).setDataContent(Mockito.anyInt());
+        Mockito.when(unspentSkillPoints.getDataContent()).thenCallRealMethod();
+        Mockito.doCallRealMethod().when(unspentSkillPoints).setDataContent(Mockito.anyInt());
 
         Integer skillPoints = 5;
         unitUnderTest.setUnspentSkillPoints(skillPoints);
@@ -74,20 +73,5 @@ public class PlayerDataTests {
     @Test
     public void testSetIllegalSkillPoints() {
         Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setUnspentSkillPoints(NEGATIVE_AMOUNT));
-    }
-
-    @Test
-    public void testSetValidAttributePoints() throws IllegalPlayerDataException {
-        Mockito.when(attributePoints.getDataContent()).thenCallRealMethod();
-        Mockito.doCallRealMethod().when(attributePoints).setDataContent(Mockito.anyInt());
-
-        Integer attributePoints = 10;
-        unitUnderTest.setUnspentAttributePoints(attributePoints);
-        Assertions.assertEquals(attributePoints, unitUnderTest.getUnspentAttributePoints());
-    }
-
-    @Test
-    public void testSetIllegalAttributePoints() {
-        Assertions.assertThrows(IllegalPlayerDataException.class, () -> unitUnderTest.setUnspentAttributePoints(NEGATIVE_AMOUNT));
     }
 }

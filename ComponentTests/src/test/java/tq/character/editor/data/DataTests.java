@@ -14,6 +14,7 @@ import tq.character.editor.Utils;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
+import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.database.IDataContentRepository;
 
 import java.nio.ByteBuffer;
@@ -25,6 +26,8 @@ import java.util.Objects;
 public class DataTests {
     @Autowired
     IPlayerData playerData;
+    @Autowired
+    IAttributesData attributeData;
     @Autowired
     IFileHandler<ByteBuffer> fileHandler;
     @Autowired
@@ -52,7 +55,7 @@ public class DataTests {
         Assert.assertEquals(playerName, playerData.getPlayerName());
         Assert.assertEquals(money, playerData.getMoney());
         Assert.assertEquals(skillPoints, playerData.getUnspentSkillPoints());
-        Assert.assertEquals(attributePoints, playerData.getUnspentAttributePoints());
+        Assert.assertEquals(attributePoints, attributeData.getUnspentAttributePoints());
         Assert.assertEquals(playerLevel, playerData.getPlayerLevel());
     }
 
@@ -69,7 +72,7 @@ public class DataTests {
         playerData.setPlayerName(moddedPlayerName);
         playerData.setMoney(moddedMoney);
         playerData.setUnspentSkillPoints(moddedSkillPoints);
-        playerData.setUnspentAttributePoints(moddedAttributePoints);
+        attributeData.setUnspentAttributePoints(moddedAttributePoints);
 
         // THEN (Verify modified data is stored in database)
         Assert.assertEquals(moddedPlayerName, contentRepository.findByVariableName("myPlayerName").getDataContent());
@@ -99,11 +102,11 @@ public class DataTests {
     private void levelChange(Integer newLevel) throws IllegalPlayerDataException {
         int levelDiff = newLevel - playerData.getPlayerLevel();
         int curSkillPoints = playerData.getUnspentSkillPoints();
-        int curAttributePoints = playerData.getUnspentAttributePoints();
+        int curAttributePoints = attributeData.getUnspentAttributePoints();
 
         playerData.setPlayerLevel(newLevel);
         Assertions.assertEquals(newLevel, playerData.getPlayerLevel());
         Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getUnspentSkillPoints());
-        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, playerData.getUnspentAttributePoints());
+        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, attributeData.getUnspentAttributePoints());
     }
 }

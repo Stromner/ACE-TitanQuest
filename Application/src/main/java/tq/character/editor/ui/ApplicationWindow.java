@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
+import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.ui.components.DataPanel;
 import tq.character.editor.ui.dialogs.WaitDialog;
 
@@ -26,6 +27,8 @@ public class ApplicationWindow {
     IFileHandler<ByteBuffer> fileHandler;
     @Autowired
     IPlayerData playerData;
+    @Autowired
+    IAttributesData attributeData;
 
     private JFrame frame;
     private JFileChooser fileChooser;
@@ -45,7 +48,7 @@ public class ApplicationWindow {
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
-        dataPanel = new DataPanel(playerData);
+        dataPanel = new DataPanel(playerData, attributeData);
         frame.setContentPane(dataPanel);
 
         waitDialog.closeWaitDialog();

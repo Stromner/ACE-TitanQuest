@@ -1,6 +1,7 @@
 package tq.character.editor.ui.components;
 
 import tq.character.editor.data.player.IPlayerData;
+import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.ui.components.partial.TwoTextFieldsPanel;
 
 import javax.swing.*;
@@ -8,15 +9,17 @@ import java.awt.*;
 
 public class DataPanel extends JPanel {
     private final IPlayerData playerData;
+    private final IAttributesData attributeData;
     private TwoTextFieldsPanel<String> playerName;
     private TwoTextFieldsPanel<Integer> playerLevel;
     private TwoTextFieldsPanel<Integer> money;
     private TwoTextFieldsPanel<Integer> unspentSkillPoints;
     private TwoTextFieldsPanel<Integer> unspentAttributePoints;
 
-    public DataPanel(IPlayerData playerData) {
+    public DataPanel(IPlayerData playerData, IAttributesData attributeData) {
         super();
         this.playerData = playerData;
+        this.attributeData = attributeData;
 
         init();
     }
@@ -50,7 +53,7 @@ public class DataPanel extends JPanel {
         unspentSkillPoints.createListener(playerData, c.getMethod("setUnspentSkillPoints", Integer.class));
         add(unspentSkillPoints);
 
-        unspentAttributePoints = new TwoTextFieldsPanel<>("Unspent attribute points", playerData.getUnspentAttributePoints());
+        unspentAttributePoints = new TwoTextFieldsPanel<>("Unspent attribute points", attributeData.getUnspentAttributePoints());
         unspentAttributePoints.createListener(playerData, c.getMethod("setUnspentAttributePoints", Integer.class));
         add(unspentAttributePoints);
     }

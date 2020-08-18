@@ -21,8 +21,4 @@ public interface IPlayerData {
     Integer getUnspentSkillPoints();
 
     void setUnspentSkillPoints(Integer skillPoints) throws IllegalPlayerDataException;
-
-    Integer getUnspentAttributePoints();
-
-    void setUnspentAttributePoints(Integer attributePoints) throws IllegalPlayerDataException;
 }
