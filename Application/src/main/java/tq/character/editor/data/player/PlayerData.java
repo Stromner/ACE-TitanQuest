@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
+import tq.character.editor.core.events.AttributesInitiatedEvent;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
-import tq.character.editor.core.events.DatabaseInitiatedEvent;
 import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.content.IntContent;
@@ -18,7 +17,6 @@ import tq.character.editor.database.entities.content.UTF16Content;
 
 
 @Service
-@Transactional // TODO This might not be needed
 public class PlayerData implements IPlayerData {
     private static final Logger log = LoggerFactory.getLogger(PlayerData.class);
 
@@ -44,7 +42,7 @@ public class PlayerData implements IPlayerData {
     private IntContent playerLevel;
 
     @EventListener
-    public void onDatabaseInitiatedEvent(DatabaseInitiatedEvent event) {
+    public void onDatabaseInitiatedEvent(AttributesInitiatedEvent event) {
         playerName = contentRepository.findByVariableName("myPlayerName");
         money = contentRepository.findByVariableName("money");
         unspentSkillPoints = contentRepository.findByVariableName("skillPoints");
@@ -65,7 +63,7 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public int getMoney() {
+    public Integer getMoney() {
         return money.getDataContent();
     }
 
@@ -79,7 +77,7 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public int getPlayerLevel() {
+    public Integer getPlayerLevel() {
         return playerLevel.getDataContent();
     }
 
@@ -105,7 +103,7 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public int getUnspentSkillPoints() {
+    public Integer getUnspentSkillPoints() {
         return unspentSkillPoints.getDataContent();
     }
 

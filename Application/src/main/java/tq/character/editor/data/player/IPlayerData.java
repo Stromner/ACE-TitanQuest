@@ -10,15 +10,15 @@ public interface IPlayerData {
 
     void setPlayerName(String playerName);
 
-    int getMoney();
+    Integer getMoney();
 
     void setMoney(Integer money) throws IllegalPlayerDataException;
 
-    int getPlayerLevel();
+    Integer getPlayerLevel();
 
     void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException;
 
-    int getUnspentSkillPoints();
+    Integer getUnspentSkillPoints();
 
     void setUnspentSkillPoints(Integer skillPoints) throws IllegalPlayerDataException;
 }

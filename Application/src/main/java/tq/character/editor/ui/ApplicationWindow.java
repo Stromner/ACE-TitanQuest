@@ -28,7 +28,7 @@ public class ApplicationWindow {
     @Autowired
     IPlayerData playerData;
     @Autowired
-    IAttributesData attributeData;
+    IAttributesData attributesData;
 
     private JFrame frame;
     private JFileChooser fileChooser;
@@ -48,7 +48,7 @@ public class ApplicationWindow {
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
-        dataPanel = new DataPanel(playerData, attributeData);
+        dataPanel = new DataPanel(playerData, attributesData);
         frame.setContentPane(dataPanel);
 
         waitDialog.closeWaitDialog();

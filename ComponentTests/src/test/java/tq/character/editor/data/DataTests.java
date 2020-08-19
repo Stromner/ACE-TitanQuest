@@ -53,10 +53,10 @@ public class DataTests {
 
         // THEN (Verify validity of the loaded data)
         Assert.assertEquals(playerName, playerData.getPlayerName());
-        Assert.assertEquals(money, playerData.getMoney());
-        Assert.assertEquals(skillPoints, playerData.getUnspentSkillPoints());
-        Assert.assertEquals(attributePoints, attributeData.getUnspentAttributePoints());
-        Assert.assertEquals(playerLevel, playerData.getPlayerLevel());
+        Assert.assertEquals(money, playerData.getMoney(), 0);
+        Assert.assertEquals(skillPoints, playerData.getUnspentSkillPoints(), 0);
+        Assert.assertEquals(attributePoints, attributeData.getUnspentAttributePoints(), 0);
+        Assert.assertEquals(playerLevel, playerData.getPlayerLevel(), 0);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class DataTests {
         attributeData.resetAllAttributes();
 
         // THEN (Verify we have the correct amount of unspent points)
-        Assert.assertEquals(5, attributeData.getUnspentAttributePoints());
+        Assert.assertEquals(5, attributeData.getUnspentAttributePoints(), 0);
     }
 
     @Test

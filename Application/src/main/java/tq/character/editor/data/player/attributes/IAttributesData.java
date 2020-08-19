@@ -3,29 +3,29 @@ package tq.character.editor.data.player.attributes;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 
 public interface IAttributesData {
-    int getUnspentAttributePoints();
+    Integer getUnspentAttributePoints();
 
-    void setUnspentAttributePoints(int attributePoints) throws IllegalPlayerDataException;
+    void setUnspentAttributePoints(Integer attributePoints) throws IllegalPlayerDataException;
 
     void resetAllAttributes();
 
-    int getStrengthAttribute();
+    Integer getStrengthAttribute();
 
-    void setStrengthAttribute(int attributePoints) throws IllegalPlayerDataException;
+    void setStrengthAttribute(Integer attributePoints) throws IllegalPlayerDataException;
 
-    int getDexterityAttribute();
+    Integer getDexterityAttribute();
 
-    void setDexterityAttribute(int attributePoints) throws IllegalPlayerDataException;
+    void setDexterityAttribute(Integer attributePoints) throws IllegalPlayerDataException;
 
-    int getIntelligenceAttribute();
+    Integer getIntelligenceAttribute();
 
-    void setIntelligenceAttribute(int attributePoints) throws IllegalPlayerDataException;
+    void setIntelligenceAttribute(Integer attributePoints) throws IllegalPlayerDataException;
 
-    int getHealthAttribute();
+    Integer getHealthAttribute();
 
-    void setHealthAttribute(int attributePoints) throws IllegalPlayerDataException;
+    void setHealthAttribute(Integer attributePoints) throws IllegalPlayerDataException;
 
-    int getManaAttribute();
+    Integer getManaAttribute();
 
-    void setManaAttribute(int attributePoints) throws IllegalPlayerDataException;
+    void setManaAttribute(Integer attributePoints) throws IllegalPlayerDataException;
 }
