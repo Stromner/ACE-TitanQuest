@@ -10,7 +10,7 @@ import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
 import tq.character.editor.data.player.attributes.IAttributesData;
-import tq.character.editor.ui.components.DataPanel;
+import tq.character.editor.ui.components.ContentPanel;
 import tq.character.editor.ui.dialogs.WaitDialog;
 
 import javax.annotation.PostConstruct;
@@ -29,11 +29,12 @@ public class ApplicationWindow {
     IPlayerData playerData;
     @Autowired
     IAttributesData attributesData;
+    @Autowired
+    private ContentPanel contentPanel;
 
     private JFrame frame;
     private JFileChooser fileChooser;
     private WaitDialog waitDialog;
-    private DataPanel dataPanel;
 
     @PostConstruct
     public void init() {
@@ -48,12 +49,8 @@ public class ApplicationWindow {
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
-        dataPanel = new DataPanel(playerData, attributesData);
-        frame.setContentPane(dataPanel);
-
+        frame.setContentPane(contentPanel);
         waitDialog.closeWaitDialog();
-
-        frame.revalidate();
     }
 
     private void createFrame() {
