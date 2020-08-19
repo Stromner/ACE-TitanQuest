@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Utils {
-    private static final Logger log = LoggerFactory.getLogger(Utils.class);
+public class TestUtils {
+    private static final Logger log = LoggerFactory.getLogger(TestUtils.class);
     private final static String PROPERTIES_PATH = "application.properties";
     private static Properties properties;
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tq.character.editor.TestUtils;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 import tq.character.editor.data.player.attributes.AttributesData;
 import tq.character.editor.database.entities.Variable;
@@ -16,8 +17,8 @@ import tq.character.editor.database.entities.content.IntContent;
 @ExtendWith(MockitoExtension.class)
 public class AttributesDataTests {
     private static final int NEGATIVE_AMOUNT = -1;
-    private static final int MINIMUM_ATTRIBUTE = 50;
-    private static final int MINIMUM_FLUID = 300;
+    private final int minimumCharacteristic = Integer.parseInt(TestUtils.getPropertyFile().getProperty("editor.player.min.characteristic"));
+    private final int minimumFluid = Integer.parseInt(TestUtils.getPropertyFile().getProperty("editor.player.min.fluid"));
 
     @Spy
     private final IntContent unspentAttributePoints = new IntContent(new Variable("modifierPoints", VariableType.INT), 0);
@@ -47,8 +48,8 @@ public class AttributesDataTests {
 
     @Test
     public void testSetValidStrength() throws IllegalPlayerDataException {
-        unitUnderTest.setStrengthAttribute(MINIMUM_ATTRIBUTE + 1);
-        Assertions.assertEquals(MINIMUM_ATTRIBUTE + 1, unitUnderTest.getStrengthAttribute());
+        unitUnderTest.setStrengthAttribute(minimumCharacteristic + 1);
+        Assertions.assertEquals(minimumCharacteristic + 1, unitUnderTest.getStrengthAttribute());
     }
 
     @Test
@@ -58,8 +59,8 @@ public class AttributesDataTests {
 
     @Test
     public void testSetValidDexterity() throws IllegalPlayerDataException {
-        unitUnderTest.setDexterityAttribute(MINIMUM_ATTRIBUTE + 1);
-        Assertions.assertEquals(MINIMUM_ATTRIBUTE + 1, unitUnderTest.getDexterityAttribute());
+        unitUnderTest.setDexterityAttribute(minimumCharacteristic + 1);
+        Assertions.assertEquals(minimumCharacteristic + 1, unitUnderTest.getDexterityAttribute());
     }
 
     @Test
@@ -69,8 +70,8 @@ public class AttributesDataTests {
 
     @Test
     public void testSetValidIntelligence() throws IllegalPlayerDataException {
-        unitUnderTest.setIntelligenceAttribute(MINIMUM_ATTRIBUTE + 1);
-        Assertions.assertEquals(MINIMUM_ATTRIBUTE + 1, unitUnderTest.getIntelligenceAttribute());
+        unitUnderTest.setIntelligenceAttribute(minimumCharacteristic + 1);
+        Assertions.assertEquals(minimumCharacteristic + 1, unitUnderTest.getIntelligenceAttribute());
     }
 
     @Test
@@ -80,8 +81,8 @@ public class AttributesDataTests {
 
     @Test
     public void testSetValidHealth() throws IllegalPlayerDataException {
-        unitUnderTest.setHealthAttribute(MINIMUM_FLUID + 1);
-        Assertions.assertEquals(MINIMUM_FLUID + 1, unitUnderTest.getHealthAttribute());
+        unitUnderTest.setHealthAttribute(minimumFluid + 1);
+        Assertions.assertEquals(minimumFluid + 1, unitUnderTest.getHealthAttribute());
     }
 
     @Test
@@ -91,8 +92,8 @@ public class AttributesDataTests {
 
     @Test
     public void testSetValidMana() throws IllegalPlayerDataException {
-        unitUnderTest.setManaAttribute(MINIMUM_FLUID + 1);
-        Assertions.assertEquals(MINIMUM_FLUID + 1, unitUnderTest.getManaAttribute());
+        unitUnderTest.setManaAttribute(minimumFluid + 1);
+        Assertions.assertEquals(minimumFluid + 1, unitUnderTest.getManaAttribute());
     }
 
     @Test

@@ -21,14 +21,14 @@ import java.util.List;
 @Transactional // TODO This might not be needed
 public class AttributesData implements IAttributesData {
     private static final Logger log = LoggerFactory.getLogger(AttributesData.class);
-    private static final Integer ATTRIBUTE_GAIN = 4;
-    private static final Integer FLUID_GAIN = ATTRIBUTE_GAIN * 10;
+    private static final Integer CHARACTERISTIC_GAIN = 4;
+    private static final Integer FLUID_GAIN = CHARACTERISTIC_GAIN * 10;
 
     @Autowired
     private IDataContentRepository contentRepository;
 
-    @Value("${editor.player.min.attribute}")
-    private int minAttribute;
+    @Value("${editor.player.min.characteristic}")
+    private int minCharacteristic;
     @Value("${editor.player.min.fluid}")
     private int minFluid;
 
@@ -69,9 +69,9 @@ public class AttributesData implements IAttributesData {
     @Override
     public void resetAllAttributes() {
         int unspentPoints = 0;
-        unspentPoints += (getStrengthAttribute() - minAttribute) / ATTRIBUTE_GAIN;
-        unspentPoints += (getDexterityAttribute() - minAttribute) / ATTRIBUTE_GAIN;
-        unspentPoints += (getIntelligenceAttribute() - minAttribute) / ATTRIBUTE_GAIN;
+        unspentPoints += (getStrengthAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
+        unspentPoints += (getDexterityAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
+        unspentPoints += (getIntelligenceAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
         unspentPoints += (getHealthAttribute() - minFluid) / FLUID_GAIN;
         unspentPoints += (getManaAttribute() - minFluid) / FLUID_GAIN;
 
@@ -90,7 +90,7 @@ public class AttributesData implements IAttributesData {
 
     @Override
     public void setStrengthAttribute(int attributePoints) throws IllegalPlayerDataException {
-        calculateUnspentAttributePoints("Strength", getStrengthAttribute(), attributePoints);
+        calculateUnspentCharacteristicPoints("Strength", getStrengthAttribute(), attributePoints);
         strengthAttribute.setDataContent((float) attributePoints);
     }
 
@@ -101,7 +101,7 @@ public class AttributesData implements IAttributesData {
 
     @Override
     public void setDexterityAttribute(int attributePoints) throws IllegalPlayerDataException {
-        calculateUnspentAttributePoints("Dexterity", getDexterityAttribute(), attributePoints);
+        calculateUnspentCharacteristicPoints("Dexterity", getDexterityAttribute(), attributePoints);
         dexterityAttribute.setDataContent((float) attributePoints);
     }
 
@@ -112,7 +112,7 @@ public class AttributesData implements IAttributesData {
 
     @Override
     public void setIntelligenceAttribute(int attributePoints) throws IllegalPlayerDataException {
-        calculateUnspentAttributePoints("Intelligence", getIntelligenceAttribute(), attributePoints);
+        calculateUnspentCharacteristicPoints("Intelligence", getIntelligenceAttribute(), attributePoints);
         intelligenceAttribute.setDataContent((float) attributePoints);
     }
 
@@ -138,13 +138,12 @@ public class AttributesData implements IAttributesData {
         manaAttribute.setDataContent((float) attributePoints);
     }
 
-    private void calculateUnspentAttributePoints(String attributeName, int currentValue, int newValue) throws IllegalPlayerDataException {
-        if (newValue < minAttribute) {
-            log.error("Could not set {} to {}, attribute must be greater than {}", attributeName, newValue, minAttribute);
-            throw new IllegalPlayerDataException(attributeName + " can not be less than " + minAttribute);
+    private void calculateUnspentCharacteristicPoints(String attributeName, int currentValue, int newValue) throws IllegalPlayerDataException {
+        if (newValue < minCharacteristic) {
+            log.error("Could not set {} to {}, attribute must be greater than {}", attributeName, newValue, minCharacteristic);
+            throw new IllegalPlayerDataException(attributeName + " can not be less than " + minCharacteristic);
         }
-        float attributeDiff = newValue - currentValue;
-        int points = (int) attributeDiff / ATTRIBUTE_GAIN;
+        int points = (newValue - currentValue) / CHARACTERISTIC_GAIN;
         points += getUnspentAttributePoints();
         setUnspentAttributePoints(points);
     }
@@ -154,8 +153,7 @@ public class AttributesData implements IAttributesData {
             log.error("Could not set {} to {}, attribute must be greater than {}", attributeName, newValue, minFluid);
             throw new IllegalPlayerDataException(attributeName + " can not be less than " + minFluid);
         }
-        float attributeDiff = newValue - currentValue;
-        int points = (int) attributeDiff / FLUID_GAIN;
+        int points = (newValue - currentValue) / FLUID_GAIN;
         points += getUnspentAttributePoints();
         setUnspentAttributePoints(points);
     }
