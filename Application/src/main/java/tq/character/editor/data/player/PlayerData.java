@@ -95,7 +95,7 @@ public class PlayerData implements IPlayerData {
             throw new IllegalPlayerDataException("Illegal player level");
         }
         if (newSkillPoints < 0 || newAttributePoints < 0) {
-            log.error("Could not set player level to {}", playerLevel);
+            log.error("Could not set player level to {}", newLevel);
             throw new IllegalPlayerDataException("Invalid modification of player level");
         }
 
