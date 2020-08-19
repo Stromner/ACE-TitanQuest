@@ -33,10 +33,10 @@ public class PlayerData implements IPlayerData {
     private int minLevel;
     @Value("${editor.player.max.level}")
     private int maxLevel;
-    @Value("${editor.player.skills.gain}")
-    private int skillsGain;
-    @Value("${editor.player.attributes.gain}")
-    private int attributesGain;
+    @Value("${editor.player.skills.per.level}")
+    private int skillsPerLevel;
+    @Value("${editor.player.attributes.per.level}")
+    private int attributesPerLevel;
 
     private UTF16Content playerName;
     private IntContent money;
@@ -65,7 +65,7 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public Integer getMoney() {
+    public int getMoney() {
         return money.getDataContent();
     }
 
@@ -79,37 +79,33 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public Integer getPlayerLevel() {
+    public int getPlayerLevel() {
         return playerLevel.getDataContent();
     }
 
     @Override
     public void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException {
+        int levelDiff = getPlayerLevel() - newLevel;
+        int newSkillPoints = getUnspentSkillPoints() - levelDiff * skillsPerLevel;
+        int newAttributePoints = attributeData.getUnspentAttributePoints() - levelDiff * attributesPerLevel;
+
         if (newLevel < minLevel || newLevel > maxLevel) {
             log.error("Could not set player level to {}, player level must be between {} and {}"
                     , playerLevel, minLevel, maxLevel);
             throw new IllegalPlayerDataException("Illegal player level");
         }
-        if (newLevel < getPlayerLevel()) {
-            if (getUnspentSkillPoints() < skillsGain) {
-                log.error("Could not lower player level to {}, not enough skill points {}"
-                        , playerLevel, getUnspentSkillPoints());
-                throw new IllegalPlayerDataException("Not enough free skill points");
-            } else if (newLevel < getPlayerLevel() && attributeData.getUnspentAttributePoints() < attributesGain) {
-                log.error("Could not lower player level to {}, not enough attribute points {}"
-                        , playerLevel, attributeData.getUnspentAttributePoints());
-                throw new IllegalPlayerDataException("Not enough free attribute points");
-            }
+        if (newSkillPoints < 0 || newAttributePoints < 0) {
+            log.error("Could not set player level to {}", playerLevel);
+            throw new IllegalPlayerDataException("Invalid modification of player level");
         }
 
-        int levelDiff = newLevel - getPlayerLevel();
         playerLevel.setDataContent(newLevel);
-        setUnspentSkillPoints(getUnspentSkillPoints() + levelDiff * skillsGain);
-        attributeData.setUnspentAttributePoints(attributeData.getUnspentAttributePoints() + levelDiff * attributesGain);
+        setUnspentSkillPoints(newSkillPoints);
+        attributeData.setUnspentAttributePoints(newAttributePoints);
     }
 
     @Override
-    public Integer getUnspentSkillPoints() {
+    public int getUnspentSkillPoints() {
         return unspentSkillPoints.getDataContent();
     }
 

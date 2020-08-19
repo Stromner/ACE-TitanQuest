@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
+import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.database.entities.content.IntContent;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,6 +20,10 @@ public class PlayerDataTests {
     private IntContent money;
     @Mock
     private IntContent unspentSkillPoints;
+    @Mock
+    private IntContent playerLevel;
+    @Mock
+    private IAttributesData attributesData;
     @InjectMocks
     private PlayerData unitUnderTest;
 

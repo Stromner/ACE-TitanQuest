@@ -28,7 +28,7 @@ public class AttributesData implements IAttributesData {
     }
 
     @Override
-    public Integer getUnspentAttributePoints() {
+    public int getUnspentAttributePoints() {
         return unspentAttributePoints.getDataContent();
     }
 

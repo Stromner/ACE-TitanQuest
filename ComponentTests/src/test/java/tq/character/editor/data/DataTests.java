@@ -45,10 +45,10 @@ public class DataTests {
     @Test
     public void testVerifyData() {
         String playerName = TestUtils.createUTF16String("TestChar");
-        Integer money = 500;
-        Integer skillPoints = 0;
-        Integer attributePoints = 0;
-        Integer playerLevel = 1;
+        int money = 500;
+        int skillPoints = 0;
+        int attributePoints = 0;
+        int playerLevel = 1;
         // GIVEN (File has been loaded)
 
         // THEN (Verify validity of the loaded data)
