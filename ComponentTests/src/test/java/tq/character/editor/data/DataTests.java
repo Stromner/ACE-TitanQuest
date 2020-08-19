@@ -63,9 +63,9 @@ public class DataTests {
     @Transactional
     public void testModifyData() throws IllegalPlayerDataException {
         String moddedPlayerName = TestUtils.createUTF16String("PlayerName");
-        Integer moddedMoney = 1000;
-        Integer moddedSkillPoints = 5;
-        Integer moddedAttributePoints = 10;
+        int moddedMoney = 1000;
+        int moddedSkillPoints = 5;
+        int moddedAttributePoints = 10;
         // GIVEN (File has been loaded)
 
         // WHEN (Data is modified)
@@ -93,13 +93,33 @@ public class DataTests {
     }
 
     @Test
-    public void testDatabaseClearedMultipleReads() {
+    @Transactional
+    public void testResetAttributes() throws IllegalPlayerDataException {
+        // GIVEN (File has been loaded)
+
+        // WHEN (Attributes are set)
+        attributeData.setUnspentAttributePoints(5);
+        attributeData.setStrengthAttribute(54);
+        attributeData.setDexterityAttribute(54);
+        attributeData.setIntelligenceAttribute(54);
+        attributeData.setHealthAttribute(340);
+        attributeData.setManaAttribute(340);
+
+        // AND (Attributes are reset)
+        attributeData.resetAllAttributes();
+
+        // THEN (Verify we have the correct amount of unspent points)
+        Assert.assertEquals(5, attributeData.getUnspentAttributePoints());
+    }
+
+    @Test
+    public void testReadMultipleFiles() {
         String filePath = Objects.requireNonNull(env.getProperty("test.character.file"));
         fileHandler.loadFile(filePath);
     }
 
     @Transactional
-    private void levelChange(Integer newLevel) throws IllegalPlayerDataException {
+    private void levelChange(int newLevel) throws IllegalPlayerDataException {
         int levelDiff = newLevel - playerData.getPlayerLevel();
         int curSkillPoints = playerData.getUnspentSkillPoints();
         int curAttributePoints = attributeData.getUnspentAttributePoints();
