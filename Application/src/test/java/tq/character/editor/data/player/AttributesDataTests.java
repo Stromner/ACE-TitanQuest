@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tq.character.editor.TestUtils;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 import tq.character.editor.data.player.attributes.AttributesData;
+import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
 import tq.character.editor.database.entities.content.FloatContent;
@@ -20,6 +22,8 @@ public class AttributesDataTests {
     private final int minimumCharacteristic = Integer.parseInt(TestUtils.getPropertyFile().getProperty("editor.player.min.characteristic"));
     private final int minimumFluid = Integer.parseInt(TestUtils.getPropertyFile().getProperty("editor.player.min.fluid"));
 
+    @Mock
+    IDataContentRepository contentRepository;
     @Spy
     private final IntContent unspentAttributePoints = new IntContent(new Variable("modifierPoints", VariableType.INT), 0);
     @Spy

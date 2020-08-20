@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tq.character.editor.core.errors.IllegalPlayerDataException;
 import tq.character.editor.data.player.attributes.IAttributesData;
+import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.content.IntContent;
 
 @ExtendWith(MockitoExtension.class)
@@ -16,6 +17,8 @@ public class PlayerDataTests {
     private static final Integer NEGATIVE_AMOUNT = -1;
     private static final Integer MINIMUM_LEVEL = 1;
 
+    @Mock
+    IDataContentRepository contentRepository;
     @Mock
     private IntContent money;
     @Mock
