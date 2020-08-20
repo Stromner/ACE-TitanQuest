@@ -67,6 +67,7 @@ public class AttributesData implements IAttributesData {
             throw new IllegalPlayerDataException("Attribute points can not be a negative amount");
         }
         unspentAttributePoints.setDataContent(attributePoints);
+        contentRepository.saveAndFlush(unspentAttributePoints);
     }
 
     @Override
@@ -100,6 +101,7 @@ public class AttributesData implements IAttributesData {
     public void setStrengthAttribute(Integer attributePoints) throws IllegalPlayerDataException {
         calculateUnspentCharacteristicPoints("Strength", getStrengthAttribute(), attributePoints);
         strengthAttribute.setDataContent((float) attributePoints);
+        contentRepository.saveAndFlush(strengthAttribute);
     }
 
     @Override
@@ -111,6 +113,7 @@ public class AttributesData implements IAttributesData {
     public void setDexterityAttribute(Integer attributePoints) throws IllegalPlayerDataException {
         calculateUnspentCharacteristicPoints("Dexterity", getDexterityAttribute(), attributePoints);
         dexterityAttribute.setDataContent((float) attributePoints);
+        contentRepository.saveAndFlush(dexterityAttribute);
     }
 
     @Override
@@ -122,6 +125,7 @@ public class AttributesData implements IAttributesData {
     public void setIntelligenceAttribute(Integer attributePoints) throws IllegalPlayerDataException {
         calculateUnspentCharacteristicPoints("Intelligence", getIntelligenceAttribute(), attributePoints);
         intelligenceAttribute.setDataContent((float) attributePoints);
+        contentRepository.saveAndFlush(intelligenceAttribute);
     }
 
     @Override
@@ -133,6 +137,7 @@ public class AttributesData implements IAttributesData {
     public void setHealthAttribute(Integer attributePoints) throws IllegalPlayerDataException {
         calculateUnspentFluidPoints("Health", getHealthAttribute(), attributePoints);
         healthAttribute.setDataContent((float) attributePoints);
+        contentRepository.saveAndFlush(healthAttribute);
     }
 
     @Override
@@ -144,6 +149,7 @@ public class AttributesData implements IAttributesData {
     public void setManaAttribute(Integer attributePoints) throws IllegalPlayerDataException {
         calculateUnspentFluidPoints("Mana", getManaAttribute(), attributePoints);
         manaAttribute.setDataContent((float) attributePoints);
+        contentRepository.saveAndFlush(manaAttribute);
     }
 
     private void calculateUnspentCharacteristicPoints(String attributeName, int currentValue, int newValue) throws IllegalPlayerDataException {

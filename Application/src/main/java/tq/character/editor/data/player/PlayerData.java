@@ -60,6 +60,7 @@ public class PlayerData implements IPlayerData {
     @Override
     public void setPlayerName(String playerName) {
         this.playerName.setDataContent(playerName);
+        contentRepository.saveAndFlush(this.playerName);
     }
 
     @Override
@@ -74,6 +75,7 @@ public class PlayerData implements IPlayerData {
             throw new IllegalPlayerDataException("Money amount can not be a negative amount");
         }
         this.money.setDataContent(money);
+        contentRepository.saveAndFlush(this.money);
     }
 
     @Override
@@ -100,6 +102,7 @@ public class PlayerData implements IPlayerData {
         playerLevel.setDataContent(newLevel);
         setUnspentSkillPoints(newSkillPoints);
         attributeData.setUnspentAttributePoints(newAttributePoints);
+        contentRepository.saveAndFlush(this.playerLevel);
     }
 
     @Override
@@ -114,5 +117,6 @@ public class PlayerData implements IPlayerData {
             throw new IllegalPlayerDataException("Skill points can not be a negative amount");
         }
         unspentSkillPoints.setDataContent(skillPoints);
+        contentRepository.saveAndFlush(unspentSkillPoints);
     }
 }
