@@ -25,6 +25,23 @@ public class ContentPanel extends JPanel {
         sidebar.addTab("General", generalPanel);
         sidebar.addTab("Attributes", new JPanel());
         sidebar.addTab("Cheats", new JPanel());
+        sidebar.addChangeListener(e -> {
+            try {
+                switch (sidebar.getSelectedIndex()) {
+                    case 0:
+                        generalPanel.renderData();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        throw new RuntimeException("Invalid tab selected");
+                }
+            } catch (NoSuchMethodException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     @EventListener
