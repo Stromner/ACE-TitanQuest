@@ -84,8 +84,8 @@ public class PlayerData implements IPlayerData {
     @Override
     public void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException {
         int levelDiff = getPlayerLevel() - newLevel;
-        int newSkillPoints = getUnspentSkillPoints() - levelDiff * skillsPerLevel;
-        int newAttributePoints = attributeData.getUnspentAttributePoints() - levelDiff * attributesPerLevel;
+        int newSkillPoints = getUnspentSkillPoints() + levelDiff * skillsPerLevel;
+        int newAttributePoints = attributeData.getUnspentAttributePoints() + levelDiff * attributesPerLevel;
 
         if (newLevel < minLevel || newLevel > maxLevel) {
             log.error("Could not set player level to {}, player level must be between {} and {}"
