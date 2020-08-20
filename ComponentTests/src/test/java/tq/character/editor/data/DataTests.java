@@ -83,11 +83,15 @@ public class DataTests {
 
     @Test
     public void testIncreaseLevel() throws IllegalPlayerDataException {
+        playerData.setUnspentSkillPoints(40);
+        attributeData.setUnspentAttributePoints(40);
         levelChange(playerData.getPlayerLevel() + 10);
     }
 
     @Test
     public void testDecreaseLevel() throws IllegalPlayerDataException {
+        playerData.setUnspentSkillPoints(40);
+        attributeData.setUnspentAttributePoints(40);
         levelChange(playerData.getPlayerLevel() + 10);
         levelChange(playerData.getPlayerLevel() - 1);
     }
@@ -126,7 +130,7 @@ public class DataTests {
 
         playerData.setPlayerLevel(newLevel);
         Assertions.assertEquals(newLevel, playerData.getPlayerLevel());
-        Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getUnspentSkillPoints());
-        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, attributeData.getUnspentAttributePoints());
+        Assertions.assertEquals(curSkillPoints - 3 * levelDiff, playerData.getUnspentSkillPoints());
+        Assertions.assertEquals(curAttributePoints - 2 * levelDiff, attributeData.getUnspentAttributePoints());
     }
 }
