@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.lang.reflect.Method;
 
 public class ReadOnlyVariableRowPanel<T> extends AbstractVariableRowPanel<T, JTextField> {
-    private static final Logger log = LoggerFactory.getLogger(FormattedVariableRowPanel.class);
+    private static final Logger log = LoggerFactory.getLogger(ReadOnlyVariableRowPanel.class);
 
     public ReadOnlyVariableRowPanel(String variableName, T variableValue) {
         super(variableName, variableValue);
@@ -26,7 +26,12 @@ public class ReadOnlyVariableRowPanel<T> extends AbstractVariableRowPanel<T, JTe
     public void createListener(Object instance, Method method) {
         variableValue.addHierarchyListener(e -> {
             log.debug("Getting value from method {}", method.getName());
-            executeMethod(instance, method, null);
+            var result = executeMethod(instance, method, null);
+            if (result instanceof Integer) {
+                variableValue.setText(String.valueOf(result));
+            } else {
+                variableValue.setText((String) result);
+            }
         });
     }
 }

@@ -23,16 +23,17 @@ public abstract class AbstractVariableRowPanel<T, V extends JTextField> extends 
         add(this.variableName);
     }
 
-    protected void executeMethod(Object instance, Method method, Object args) {
+    protected Object executeMethod(Object instance, Method method, Object args) {
         try {
             if (args == null) {
-                method.invoke(instance);
+                return method.invoke(instance);
             } else {
-                method.invoke(instance, args);
+                return method.invoke(instance, args);
             }
         } catch (Exception e) {
             exceptionHandling(e);
         }
+        return variableValue;
     }
 
     private void exceptionHandling(Exception e) {

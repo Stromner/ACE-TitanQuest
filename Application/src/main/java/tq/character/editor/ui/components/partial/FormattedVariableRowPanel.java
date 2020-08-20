@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import tq.character.editor.ui.utils.FormatCreator;
 
 import javax.swing.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.lang.reflect.Method;
 
 public class FormattedVariableRowPanel<T> extends AbstractVariableRowPanel<T, JFormattedTextField> {
@@ -21,12 +23,20 @@ public class FormattedVariableRowPanel<T> extends AbstractVariableRowPanel<T, JF
     }
 
     public void createListener(Object instance, Method method) {
-        variableValue.addHierarchyListener(e -> {
-            log.debug("Setting value {} for method {}", variableValue.getText(), method.getName());
-            if (NumberUtils.isCreatable(variableValue.getText())) {
-                executeMethod(instance, method, Integer.parseInt(variableValue.getText()));
-            } else {
-                executeMethod(instance, method, variableValue.getText());
+        variableValue.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                log.debug("Setting value {} for method {}", variableValue.getText(), method.getName());
+                if (NumberUtils.isCreatable(variableValue.getText())) {
+                    executeMethod(instance, method, Integer.parseInt(variableValue.getText()));
+                } else {
+                    executeMethod(instance, method, variableValue.getText());
+                }
             }
         });
     }
