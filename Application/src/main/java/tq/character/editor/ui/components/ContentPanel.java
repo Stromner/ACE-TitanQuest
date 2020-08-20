@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
+import tq.character.editor.ui.components.sub.panels.CheatPanel;
 import tq.character.editor.ui.components.sub.panels.GeneralPanel;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,8 @@ import java.awt.*;
 public class ContentPanel extends JPanel {
     @Autowired
     private GeneralPanel generalPanel;
+    @Autowired
+    private CheatPanel cheatPanel;
     private JTabbedPane sidebar;
 
     @PostConstruct
@@ -24,30 +27,14 @@ public class ContentPanel extends JPanel {
         sidebar = new JTabbedPane(JTabbedPane.LEFT);
         sidebar.addTab("General", generalPanel);
         sidebar.addTab("Attributes", new JPanel());
-        sidebar.addTab("Cheats", new JPanel());
-        sidebar.addChangeListener(e -> {
-            try {
-                switch (sidebar.getSelectedIndex()) {
-                    case 0:
-                        generalPanel.renderData();
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        throw new RuntimeException("Invalid tab selected");
-                }
-            } catch (NoSuchMethodException ex) {
-                ex.printStackTrace();
-            }
-        });
+        sidebar.addTab("Cheats", cheatPanel);
     }
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
         try {
             generalPanel.renderData();
+            cheatPanel.renderData();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
