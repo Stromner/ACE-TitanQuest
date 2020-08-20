@@ -112,8 +112,13 @@ public class DataTests {
         // AND (Attributes are reset)
         attributeData.resetAllAttributes();
 
-        // THEN (Verify we have the correct amount of unspent points)
+        // THEN (Verify we have the correct amount of points)
         Assert.assertEquals(5, attributeData.getUnspentAttributePoints(), 0);
+        Assert.assertEquals(50, attributeData.getStrengthAttribute(), 0);
+        Assert.assertEquals(50, attributeData.getDexterityAttribute(), 0);
+        Assert.assertEquals(50, attributeData.getIntelligenceAttribute(), 0);
+        Assert.assertEquals(300, attributeData.getHealthAttribute(), 0);
+        Assert.assertEquals(300, attributeData.getManaAttribute(), 0);
     }
 
     @Test

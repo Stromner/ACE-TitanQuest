@@ -79,6 +79,11 @@ public class AttributesData implements IAttributesData {
         unspentPoints += (getManaAttribute() - minFluid) / FLUID_GAIN;
 
         try {
+            setStrengthAttribute(minCharacteristic);
+            setDexterityAttribute(minCharacteristic);
+            setIntelligenceAttribute(minCharacteristic);
+            setHealthAttribute(minFluid);
+            setManaAttribute(minFluid);
             setUnspentAttributePoints(unspentPoints);
         } catch (IllegalPlayerDataException e) {
             log.error("Something went horrible wrong, check trace!");
