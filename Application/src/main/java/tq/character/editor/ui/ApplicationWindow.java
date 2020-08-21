@@ -15,6 +15,7 @@ import tq.character.editor.ui.dialogs.WaitDialog;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
+import java.awt.*;
 import java.nio.ByteBuffer;
 
 @Component
@@ -57,6 +58,9 @@ public class ApplicationWindow {
         frame = new JFrame("TQCharacterEditor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
 
         configureFrame();
     }
