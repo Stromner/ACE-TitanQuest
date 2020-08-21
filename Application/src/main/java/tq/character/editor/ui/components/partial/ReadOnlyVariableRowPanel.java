@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
-import java.lang.reflect.Method;
 
 public class ReadOnlyVariableRowPanel<T> extends AbstractVariableRowPanel<T, JTextField> {
     private static final Logger log = LoggerFactory.getLogger(ReadOnlyVariableRowPanel.class);
@@ -21,17 +20,5 @@ public class ReadOnlyVariableRowPanel<T> extends AbstractVariableRowPanel<T, JTe
         this.variableValue.setEditable(false);
 
         add(this.variableValue);
-    }
-
-    public void createListener(Object instance, Method method) {
-        variableValue.addHierarchyListener(e -> {
-            log.debug("Getting value from method {}", method.getName());
-            var result = executeMethod(instance, method, null);
-            if (result instanceof Integer) {
-                variableValue.setText(String.valueOf(result));
-            } else {
-                variableValue.setText((String) result);
-            }
-        });
     }
 }

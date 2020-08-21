@@ -12,6 +12,8 @@ public abstract class AbstractVariableRowPanel<T, V extends JTextField> extends 
     private final Label variableName;
     private final T defaultValue;
     protected V variableValue;
+    protected Object instance;
+    protected Method method;
 
     public AbstractVariableRowPanel(String fieldName, T variableValue) {
         super();
@@ -21,6 +23,21 @@ public abstract class AbstractVariableRowPanel<T, V extends JTextField> extends 
         this.variableName = new Label(fieldName);
 
         add(this.variableName);
+    }
+
+    public void setDataGetter(Object instance, Method method) {
+        this.instance = instance;
+        this.method = method;
+    }
+
+    protected void refetchData() {
+        log.debug("Getting value from method {}", method.getName());
+        var result = executeMethod(instance, method, null);
+        if (result instanceof Integer) {
+            variableValue.setText(String.valueOf(result));
+        } else {
+            variableValue.setText((String) result);
+        }
     }
 
     protected Object executeMethod(Object instance, Method method, Object args) {

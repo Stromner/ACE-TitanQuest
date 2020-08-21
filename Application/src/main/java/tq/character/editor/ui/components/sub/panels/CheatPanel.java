@@ -34,18 +34,22 @@ public class CheatPanel extends JPanel {
         Class<?> attributesClass = attributesData.getClass();
 
         playerLevel = new FormattedVariableRowPanel<>("Player level", playerData.getPlayerLevel());
+        playerLevel.setDataGetter(playerData, playerClass.getMethod("getPlayerLevel"));
         playerLevel.createListener(playerData, playerClass.getMethod("setPlayerLevel", Integer.class));
         add(playerLevel);
 
         money = new FormattedVariableRowPanel<>("Money", playerData.getMoney());
+        money.setDataGetter(playerData, playerClass.getMethod("getMoney"));
         money.createListener(playerData, playerClass.getMethod("setMoney", Integer.class));
         add(money);
 
         unspentSkillPoints = new FormattedVariableRowPanel<>("Unspent skill points", playerData.getUnspentSkillPoints());
+        unspentSkillPoints.setDataGetter(playerData, playerClass.getMethod("getUnspentSkillPoints"));
         unspentSkillPoints.createListener(playerData, playerClass.getMethod("setUnspentSkillPoints", Integer.class));
         add(unspentSkillPoints);
 
         unspentAttributePoints = new FormattedVariableRowPanel<>("Unspent attribute points", attributesData.getUnspentAttributePoints());
+        unspentAttributePoints.setDataGetter(attributesData, attributesClass.getMethod("getUnspentAttributePoints"));
         unspentAttributePoints.createListener(attributesData, attributesClass.getMethod("setUnspentAttributePoints", Integer.class));
         add(unspentAttributePoints);
     }

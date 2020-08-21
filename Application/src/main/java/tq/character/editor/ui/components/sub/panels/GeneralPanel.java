@@ -37,23 +37,24 @@ public class GeneralPanel extends JPanel {
         Class<?> attributesClass = attributesData.getClass();
 
         playerName = new FormattedVariableRowPanel<>("Character name", playerData.getPlayerName());
+        playerName.setDataGetter(playerData, playerClass.getMethod("getPlayerName"));
         playerName.createListener(playerData, playerClass.getMethod("setPlayerName", String.class));
         add(playerName);
 
         playerLevel = new ReadOnlyVariableRowPanel<>("Player level", playerData.getPlayerLevel());
-        playerLevel.createListener(playerData, playerClass.getMethod("getPlayerLevel"));
+        playerLevel.setDataGetter(playerData, playerClass.getMethod("getPlayerLevel"));
         add(playerLevel);
 
         money = new ReadOnlyVariableRowPanel<>("Money", playerData.getMoney());
-        money.createListener(playerData, playerClass.getMethod("getMoney"));
+        money.setDataGetter(playerData, playerClass.getMethod("getMoney"));
         add(money);
 
         unspentSkillPoints = new ReadOnlyVariableRowPanel<>("Unspent skill points", playerData.getUnspentSkillPoints());
-        unspentSkillPoints.createListener(playerData, playerClass.getMethod("getUnspentSkillPoints"));
+        unspentSkillPoints.setDataGetter(playerData, playerClass.getMethod("getUnspentSkillPoints"));
         add(unspentSkillPoints);
 
         unspentAttributePoints = new ReadOnlyVariableRowPanel<>("Unspent attribute points", attributesData.getUnspentAttributePoints());
-        unspentAttributePoints.createListener(attributesData, attributesClass.getMethod("getUnspentAttributePoints"));
+        unspentAttributePoints.setDataGetter(attributesData, attributesClass.getMethod("getUnspentAttributePoints"));
         add(unspentAttributePoints);
     }
 }
