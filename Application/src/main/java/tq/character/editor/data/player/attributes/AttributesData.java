@@ -72,7 +72,7 @@ public class AttributesData implements IAttributesData {
 
     @Override
     public void resetAllAttributes() {
-        int unspentPoints = 0;
+        int unspentPoints = getUnspentAttributePoints();
         unspentPoints += (getStrengthAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
         unspentPoints += (getDexterityAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
         unspentPoints += (getIntelligenceAttribute() - minCharacteristic) / CHARACTERISTIC_GAIN;
@@ -158,8 +158,7 @@ public class AttributesData implements IAttributesData {
             throw new IllegalPlayerDataException(attributeName + " can not be less than " + minCharacteristic);
         }
         int points = (newValue - currentValue) / CHARACTERISTIC_GAIN;
-        points += getUnspentAttributePoints();
-        setUnspentAttributePoints(points);
+        setUnspentAttributePoints(getUnspentAttributePoints() - points);
     }
 
     private void calculateUnspentFluidPoints(String attributeName, int currentValue, int newValue) throws IllegalPlayerDataException {
@@ -168,7 +167,6 @@ public class AttributesData implements IAttributesData {
             throw new IllegalPlayerDataException(attributeName + " can not be less than " + minFluid);
         }
         int points = (newValue - currentValue) / FLUID_GAIN;
-        points += getUnspentAttributePoints();
-        setUnspentAttributePoints(points);
+        setUnspentAttributePoints(getUnspentAttributePoints() - points);
     }
 }
