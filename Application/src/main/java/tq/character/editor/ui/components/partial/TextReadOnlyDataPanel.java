@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 
-public class ReadOnlyVariableRowPanel<T> extends AbstractVariableRowPanel<T, JTextField> {
-    private static final Logger log = LoggerFactory.getLogger(ReadOnlyVariableRowPanel.class);
+public class TextReadOnlyDataPanel<T> extends ADataPanel<T, JTextField> {
+    private static final Logger log = LoggerFactory.getLogger(TextReadOnlyDataPanel.class);
 
-    public ReadOnlyVariableRowPanel(String variableName, T variableValue) {
+    public TextReadOnlyDataPanel(String variableName, T variableValue) {
         super(variableName, variableValue);
 
         this.variableValue = new JTextField();

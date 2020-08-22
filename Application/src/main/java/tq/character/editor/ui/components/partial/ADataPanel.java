@@ -7,15 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Method;
 
-public abstract class AbstractVariableRowPanel<T, V extends JTextField> extends JPanel {
-    private static final Logger log = LoggerFactory.getLogger(AbstractVariableRowPanel.class);
+public abstract class ADataPanel<T, V extends JTextField> extends JPanel {
+    private static final Logger log = LoggerFactory.getLogger(ADataPanel.class);
     private final Label variableName;
     private final T defaultValue;
     protected V variableValue;
     protected Object instance;
     protected Method method;
 
-    public AbstractVariableRowPanel(String fieldName, T variableValue) {
+    public ADataPanel(String fieldName, T variableValue) {
         super();
         defaultValue = variableValue;
         setLayout(new GridLayout(1, 0));

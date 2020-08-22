@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import tq.character.editor.data.player.IPlayerData;
 import tq.character.editor.data.player.attributes.IAttributesData;
-import tq.character.editor.ui.components.partial.FormattedVariableRowPanel;
-import tq.character.editor.ui.components.partial.ReadOnlyVariableRowPanel;
+import tq.character.editor.ui.components.partial.TextFormattedDataPanel;
+import tq.character.editor.ui.components.partial.TextReadOnlyDataPanel;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
@@ -20,11 +20,11 @@ public class GeneralPanel extends JPanel {
     @Autowired
     private IAttributesData attributesData;
 
-    private FormattedVariableRowPanel<String> playerName;
-    private ReadOnlyVariableRowPanel<Integer> playerLevel;
-    private ReadOnlyVariableRowPanel<Integer> money;
-    private ReadOnlyVariableRowPanel<Integer> unspentSkillPoints;
-    private ReadOnlyVariableRowPanel<Integer> unspentAttributePoints;
+    private TextFormattedDataPanel<String> playerName;
+    private TextReadOnlyDataPanel<Integer> playerLevel;
+    private TextReadOnlyDataPanel<Integer> money;
+    private TextReadOnlyDataPanel<Integer> unspentSkillPoints;
+    private TextReadOnlyDataPanel<Integer> unspentAttributePoints;
 
     @PostConstruct
     private void init() {
@@ -36,24 +36,24 @@ public class GeneralPanel extends JPanel {
         Class<?> playerClass = playerData.getClass();
         Class<?> attributesClass = attributesData.getClass();
 
-        playerName = new FormattedVariableRowPanel<>("Character name", playerData.getPlayerName());
+        playerName = new TextFormattedDataPanel<>("Character name", playerData.getPlayerName());
         playerName.setDataGetter(playerData, playerClass.getMethod("getPlayerName"));
         playerName.createListener(playerData, playerClass.getMethod("setPlayerName", String.class));
         add(playerName);
 
-        playerLevel = new ReadOnlyVariableRowPanel<>("Player level", playerData.getPlayerLevel());
+        playerLevel = new TextReadOnlyDataPanel<>("Player level", playerData.getPlayerLevel());
         playerLevel.setDataGetter(playerData, playerClass.getMethod("getPlayerLevel"));
         add(playerLevel);
 
-        money = new ReadOnlyVariableRowPanel<>("Money", playerData.getMoney());
+        money = new TextReadOnlyDataPanel<>("Money", playerData.getMoney());
         money.setDataGetter(playerData, playerClass.getMethod("getMoney"));
         add(money);
 
-        unspentSkillPoints = new ReadOnlyVariableRowPanel<>("Unspent skill points", playerData.getUnspentSkillPoints());
+        unspentSkillPoints = new TextReadOnlyDataPanel<>("Unspent skill points", playerData.getUnspentSkillPoints());
         unspentSkillPoints.setDataGetter(playerData, playerClass.getMethod("getUnspentSkillPoints"));
         add(unspentSkillPoints);
 
-        unspentAttributePoints = new ReadOnlyVariableRowPanel<>("Unspent attribute points", attributesData.getUnspentAttributePoints());
+        unspentAttributePoints = new TextReadOnlyDataPanel<>("Unspent attribute points", attributesData.getUnspentAttributePoints());
         unspentAttributePoints.setDataGetter(attributesData, attributesClass.getMethod("getUnspentAttributePoints"));
         add(unspentAttributePoints);
     }

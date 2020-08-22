@@ -11,10 +11,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.lang.reflect.Method;
 
-public class FormattedVariableRowPanel<T> extends AbstractVariableRowPanel<T, JFormattedTextField> {
-    private static final Logger log = LoggerFactory.getLogger(FormattedVariableRowPanel.class);
+public class TextFormattedDataPanel<T> extends ADataPanel<T, JFormattedTextField> {
+    private static final Logger log = LoggerFactory.getLogger(TextFormattedDataPanel.class);
 
-    public FormattedVariableRowPanel(String variableName, T variableValue) {
+    public TextFormattedDataPanel(String variableName, T variableValue) {
         super(variableName, variableValue);
 
         this.variableValue = new JFormattedTextField(FormatCreator.buildFormatter(variableValue));
@@ -46,15 +46,15 @@ public class FormattedVariableRowPanel<T> extends AbstractVariableRowPanel<T, JF
 
     private void updateAllVariableRows(Container c) {
         for (Component comp : c.getComponents()) {
-            if (comp instanceof AbstractVariableRowPanel) {
-                ((AbstractVariableRowPanel) comp).refetchData();
+            if (comp instanceof ADataPanel) {
+                ((ADataPanel) comp).refetchData();
             } else if (comp instanceof Container) {
                 updateAllVariableRows((Container) comp);
             }
         }
     }
 
-    private FormattedVariableRowPanel<?> getOuterInstance() {
+    private TextFormattedDataPanel<?> getOuterInstance() {
         return this;
     }
 }
