@@ -135,7 +135,7 @@ public class DataTests {
 
         playerData.setPlayerLevel(newLevel);
         Assertions.assertEquals(newLevel, playerData.getPlayerLevel());
-        Assertions.assertEquals(curSkillPoints - 3 * levelDiff, playerData.getUnspentSkillPoints());
-        Assertions.assertEquals(curAttributePoints - 2 * levelDiff, attributeData.getUnspentAttributePoints());
+        Assertions.assertEquals(curSkillPoints + 3 * levelDiff, playerData.getUnspentSkillPoints());
+        Assertions.assertEquals(curAttributePoints + 2 * levelDiff, attributeData.getUnspentAttributePoints());
     }
 }

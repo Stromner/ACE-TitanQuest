@@ -85,7 +85,7 @@ public class PlayerData implements IPlayerData {
 
     @Override
     public void setPlayerLevel(Integer newLevel) throws IllegalPlayerDataException {
-        int levelDiff = getPlayerLevel() - newLevel;
+        int levelDiff = newLevel - getPlayerLevel();
         int newSkillPoints = getUnspentSkillPoints() + levelDiff * skillsPerLevel;
         int newAttributePoints = attributeData.getUnspentAttributePoints() + levelDiff * attributesPerLevel;
 
