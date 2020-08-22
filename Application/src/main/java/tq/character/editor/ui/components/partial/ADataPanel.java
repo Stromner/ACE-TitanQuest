@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Method;
 
-public abstract class ADataPanel<T, V extends JTextField> extends JPanel {
+public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
     private static final Logger log = LoggerFactory.getLogger(ADataPanel.class);
     private final Label variableName;
     private final T defaultValue;
@@ -30,14 +30,10 @@ public abstract class ADataPanel<T, V extends JTextField> extends JPanel {
         this.method = method;
     }
 
-    protected void refetchData() {
+    public void refetchData() {
         log.debug("Getting value from method {}", method.getName());
-        var result = executeMethod(instance, method, null);
-        if (result instanceof Integer) {
-            variableValue.setText(String.valueOf(result));
-        } else {
-            variableValue.setText((String) result);
-        }
+        T fetchedValue = (T) executeMethod(instance, method, null);
+        setData(fetchedValue);
     }
 
     protected Object executeMethod(Object instance, Method method, Object args) {
@@ -56,7 +52,7 @@ public abstract class ADataPanel<T, V extends JTextField> extends JPanel {
     private void exceptionHandling(Exception e) {
         String errorMessage;
         if (e.getCause() != null) {
-            errorMessage = e.getCause().getMessage() + ": " + variableValue.getText();
+            errorMessage = e.getCause().getMessage();
         } else {
             errorMessage = e.toString();
         }
@@ -64,10 +60,8 @@ public abstract class ADataPanel<T, V extends JTextField> extends JPanel {
         JOptionPane.showMessageDialog(
                 this, errorMessage, "Invalid Data", JOptionPane.ERROR_MESSAGE);
 
-        if (defaultValue instanceof String) {
-            variableValue.setText((String) defaultValue);
-        } else {
-            variableValue.setText(String.valueOf(defaultValue));
-        }
+        setData(defaultValue);
     }
+
+    protected abstract void setData(T value);
 }

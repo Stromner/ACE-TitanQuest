@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import tq.character.editor.data.player.IPlayerData;
 import tq.character.editor.data.player.attributes.IAttributesData;
-import tq.character.editor.ui.components.partial.TextFormattedDataPanel;
-import tq.character.editor.ui.components.partial.TextReadOnlyDataPanel;
+import tq.character.editor.ui.components.partial.text.field.TextFormattedDataPanel;
+import tq.character.editor.ui.components.partial.text.field.TextReadOnlyDataPanel;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
