@@ -3,11 +3,9 @@ package tq.character.editor.ui.components.partial.text.field;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tq.character.editor.ui.components.partial.ADataPanel;
 import tq.character.editor.ui.utils.FormatCreator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.lang.reflect.Method;
@@ -39,23 +37,9 @@ public class TextFormattedDataPanel<T> extends ATextField<T, JFormattedTextField
                 } else {
                     executeMethod(instance, method, variableValue.getText());
                 }
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(getOuterInstance());
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(variableValue);
                 updateAllVariableRows(frame.getContentPane());
             }
         });
-    }
-
-    private void updateAllVariableRows(Container c) {
-        for (Component comp : c.getComponents()) {
-            if (comp instanceof ADataPanel) {
-                ((ADataPanel) comp).refetchData();
-            } else if (comp instanceof Container) {
-                updateAllVariableRows((Container) comp);
-            }
-        }
-    }
-
-    private TextFormattedDataPanel<?> getOuterInstance() {
-        return this;
     }
 }

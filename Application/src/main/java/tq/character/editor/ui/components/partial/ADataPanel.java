@@ -57,11 +57,20 @@ public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
             errorMessage = e.toString();
         }
 
-        JOptionPane.showMessageDialog(
-                this, errorMessage, "Invalid Data", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, errorMessage, "Invalid Data", JOptionPane.ERROR_MESSAGE);
 
         setData(defaultValue);
     }
 
     protected abstract void setData(T value);
+
+    protected void updateAllVariableRows(Container c) {
+        for (Component comp : c.getComponents()) {
+            if (comp instanceof ADataPanel) {
+                ((ADataPanel) comp).refetchData();
+            } else if (comp instanceof Container) {
+                updateAllVariableRows((Container) comp);
+            }
+        }
+    }
 }
