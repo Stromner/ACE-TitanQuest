@@ -15,6 +15,7 @@ public class SpinnerDataPanel extends ADataPanel<Integer, JSpinner> {
 
         this.variableValue = new JSpinner(
                 new SpinnerNumberModel(variableValue.intValue(), minValue, Integer.MAX_VALUE, stepSize));
+        ((JSpinner.DefaultEditor) this.variableValue.getEditor()).getTextField().setEditable(false);
         add(this.variableValue);
     }
 
