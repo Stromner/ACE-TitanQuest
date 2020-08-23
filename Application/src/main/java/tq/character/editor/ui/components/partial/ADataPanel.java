@@ -58,8 +58,6 @@ public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
         }
 
         JOptionPane.showMessageDialog(this, errorMessage, "Invalid Data", JOptionPane.ERROR_MESSAGE);
-
-        setData(defaultValue);
     }
 
     protected abstract void setData(T value);
