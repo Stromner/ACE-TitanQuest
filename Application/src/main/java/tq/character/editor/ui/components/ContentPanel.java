@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
-import tq.character.editor.ui.components.sub.panels.CheatPanel;
-import tq.character.editor.ui.components.sub.panels.GeneralPanel;
+import tq.character.editor.ui.components.panels.CheatPanel;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
