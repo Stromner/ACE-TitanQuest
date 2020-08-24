@@ -30,7 +30,7 @@ public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
         this.method = method;
     }
 
-    public void refetchData() {
+    public void reloadData() { // TODO This should probably be protected again, was set to public for testing purpose
         log.debug("Getting value from method {}", method.getName());
         T fetchedValue = (T) executeMethod(instance, method, null);
         setData(fetchedValue);
@@ -65,7 +65,7 @@ public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
     protected void updateAllVariableRows(Container c) {
         for (Component comp : c.getComponents()) {
             if (comp instanceof ADataPanel) {
-                ((ADataPanel) comp).refetchData();
+                ((ADataPanel) comp).reloadData();
             } else if (comp instanceof Container) {
                 updateAllVariableRows((Container) comp);
             }
