@@ -91,7 +91,7 @@ public class PlayerData implements IPlayerData {
 
         if (newLevel < minLevel || newLevel > maxLevel) {
             log.error("Could not set player level to {}, player level must be between {} and {}"
-                    , playerLevel, minLevel, maxLevel);
+                    , newLevel, minLevel, maxLevel);
             throw new IllegalPlayerDataException("Illegal player level");
         }
         if (newSkillPoints < 0 || newAttributePoints < 0) {
