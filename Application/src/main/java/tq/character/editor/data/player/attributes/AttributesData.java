@@ -56,6 +56,16 @@ public class AttributesData implements IAttributesData {
     }
 
     @Override
+    public Integer getCharacteristicGain() {
+        return CHARACTERISTIC_GAIN;
+    }
+
+    @Override
+    public Integer getFluidGain() {
+        return FLUID_GAIN;
+    }
+
+    @Override
     public Integer getUnspentAttributePoints() {
         return unspentAttributePoints.getDataContent();
     }
@@ -64,7 +74,7 @@ public class AttributesData implements IAttributesData {
     public void setUnspentAttributePoints(Integer attributePoints) throws IllegalPlayerDataException {
         if (attributePoints < 0) {
             log.error("Could not set attribute points to {}, attribute points must be a positive amount", attributePoints);
-            throw new IllegalPlayerDataException("Attribute points can not be a negative amount");
+            throw new IllegalPlayerDataException("Unspent attribute points can not be less than zero");
         }
         unspentAttributePoints.setDataContent(attributePoints);
         contentRepository.saveAndFlush(unspentAttributePoints);
