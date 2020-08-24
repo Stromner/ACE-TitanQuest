@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
+import tq.character.editor.ui.components.panels.CharacterPanel;
 import tq.character.editor.ui.components.panels.CheatPanel;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import java.awt.*;
 @ConditionalOnProperty(name = "editor.live.boot")
 public class ContentPanel extends JPanel {
     @Autowired
-    private GeneralPanel generalPanel;
+    private CharacterPanel characterPanel;
     @Autowired
     private CheatPanel cheatPanel;
     private JTabbedPane sidebar;
@@ -24,15 +25,16 @@ public class ContentPanel extends JPanel {
     private void init() {
         setLayout(new GridLayout());
         sidebar = new JTabbedPane(JTabbedPane.LEFT);
-        sidebar.addTab("General", generalPanel);
-        sidebar.addTab("Attributes", new JPanel());
+        sidebar.addTab("Character", characterPanel);
+        sidebar.addTab("Skills", new JPanel());
         sidebar.addTab("Cheats", cheatPanel);
     }
 
     @EventListener
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
+        removeAll();
         try {
-            generalPanel.renderData();
+            characterPanel.renderData();
             cheatPanel.renderData();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

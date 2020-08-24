@@ -18,6 +18,7 @@ public class AttributesPanel extends JPanel {
     @Autowired
     private IAttributesData attributesData;
 
+    private JLabel attributeTitle;
     private SpinnerDataPanel strengthAttribute;
     private SpinnerDataPanel dexterityAttribute;
     private SpinnerDataPanel intelligenceAttribute;
@@ -39,6 +40,9 @@ public class AttributesPanel extends JPanel {
     private void createAttributesPanel() throws NoSuchMethodException {
         int charStep = attributesData.getCharacteristicGain();
         int fluidStep = attributesData.getFluidGain();
+
+        attributeTitle = new JLabel("Attributes");
+        add(attributeTitle);
 
         Class<?> clazz = attributesData.getClass();
 
