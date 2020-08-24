@@ -7,6 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
+import tq.character.editor.core.events.FailedToLoadFileEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
 import tq.character.editor.data.player.IPlayerData;
 import tq.character.editor.data.player.attributes.IAttributesData;
@@ -52,6 +53,15 @@ public class ApplicationWindow {
     public void onDatabaseInitiatedEvent(DataLayerInitiatedEvent event) {
         frame.setContentPane(contentPanel);
         waitDialog.closeWaitDialog();
+    }
+
+    @EventListener
+    public void onFailedToLoadFileEvent(FailedToLoadFileEvent event) {
+        frame.setContentPane(new JPanel());
+        waitDialog.closeWaitDialog();
+        JOptionPane.showMessageDialog(frame,
+                "Could not load file, either the file is corrupt or is not supported",
+                "Failed to load file", JOptionPane.ERROR_MESSAGE);
     }
 
     private void createFrame() {

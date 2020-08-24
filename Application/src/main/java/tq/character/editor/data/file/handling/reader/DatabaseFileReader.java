@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DatabaseInitiatedEvent;
+import tq.character.editor.core.events.FailedToLoadFileEvent;
 import tq.character.editor.database.IDataContentRepository;
 import tq.character.editor.database.entities.Variable;
 import tq.character.editor.database.entities.VariableType;
@@ -103,6 +104,7 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
         VariableType variableType = VariablesGlossary.lookupVariable(variableName);
         if (variableType == null) {
             log.error("Could not find variableName '{}' in the glossary", variableName);
+            eventPublisher.publishEvent(new FailedToLoadFileEvent(this));
             throw new RuntimeException("variableName not in glossary");
         }
         Variable variable = new Variable(variableName, variableType);
@@ -144,6 +146,11 @@ public class DatabaseFileReader implements IFileReader<ByteBuffer> {
 
     private byte[] readBytes(ByteBuffer data, boolean doubleLen) {
         int dataSize = data.getInt();
+        if (dataSize > data.remaining()) {
+            log.error("dataSize '{}' is more than what's left in the buffer '{}'", dataSize, data.remaining());
+            eventPublisher.publishEvent(new FailedToLoadFileEvent(this));
+            throw new RuntimeException("Insufficient data left in file we're trying to load");
+        }
         if (doubleLen) {
             dataSize *= 2;
         }
