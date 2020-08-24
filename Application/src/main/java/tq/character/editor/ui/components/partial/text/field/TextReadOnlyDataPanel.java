@@ -9,7 +9,7 @@ public class TextReadOnlyDataPanel<T> extends ATextField<T, JTextField> {
     private static final Logger log = LoggerFactory.getLogger(TextReadOnlyDataPanel.class);
 
     public TextReadOnlyDataPanel(String variableName, T variableValue) {
-        super(variableName, variableValue);
+        super(variableName);
 
         this.variableValue = new JTextField();
         if (variableValue instanceof String) {

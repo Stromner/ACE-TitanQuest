@@ -14,7 +14,7 @@ public class TextFormattedDataPanel<T> extends ATextField<T, JFormattedTextField
     private static final Logger log = LoggerFactory.getLogger(TextFormattedDataPanel.class);
 
     public TextFormattedDataPanel(String variableName, T variableValue) {
-        super(variableName, variableValue);
+        super(variableName);
 
         this.variableValue = new JFormattedTextField(FormatCreator.buildFormatter(variableValue));
         this.variableValue.setValue(variableValue);

@@ -11,7 +11,7 @@ public class SpinnerDataPanel extends ADataPanel<Integer, JSpinner> {
     private static final Logger log = LoggerFactory.getLogger(SpinnerDataPanel.class);
 
     public SpinnerDataPanel(String fieldName, Integer variableValue, int minValue, int stepSize) {
-        super(fieldName, variableValue);
+        super(fieldName);
 
         this.variableValue = new JSpinner(
                 new SpinnerNumberModel(variableValue.intValue(), minValue, Integer.MAX_VALUE, stepSize));

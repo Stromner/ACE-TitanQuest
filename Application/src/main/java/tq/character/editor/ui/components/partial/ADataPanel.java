@@ -10,14 +10,12 @@ import java.lang.reflect.Method;
 public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
     private static final Logger log = LoggerFactory.getLogger(ADataPanel.class);
     private final Label variableName;
-    private final T defaultValue;
     protected V variableValue;
     protected Object instance;
     protected Method method;
 
-    public ADataPanel(String fieldName, T variableValue) {
+    public ADataPanel(String fieldName) {
         super();
-        defaultValue = variableValue;
         setLayout(new GridLayout(1, 0));
 
         this.variableName = new Label(fieldName);
