@@ -37,7 +37,7 @@ public class DatabaseTests {
     public void testUTF8Encoding() {
         String variableName = new String(new byte[]{0x54, 0x65, 0x73, 0x74}, StandardCharsets.UTF_8); // Test
         insertRow(variableName, VariableType.UTF8, "testData");
-        DataContent content = contentRepository.findByVariableName("Test");
+        DataContent<?> content = contentRepository.findByVariableName("Test");
 
         Assert.assertEquals("Test", content.getVariable().getName());
     }
@@ -46,7 +46,7 @@ public class DatabaseTests {
     public void testUTF16Encoding() {
         String variableName = new String(new byte[]{0x00, 0x54, 0x00, 0x65, 0x00, 0x73, 0x00, 0x74}, StandardCharsets.UTF_16); // Test
         insertRow(variableName, VariableType.UTF16, "testData");
-        DataContent content = contentRepository.findByVariableName("Test");
+        DataContent<?> content = contentRepository.findByVariableName("Test");
 
         Assert.assertEquals("Test", content.getVariable().getName());
     }
@@ -54,7 +54,7 @@ public class DatabaseTests {
     @Test
     public void testFindByVariableName() {
         insertRow("testString", VariableType.UTF8, "testData");
-        DataContent content = contentRepository.findByVariableName("testString");
+        DataContent<?> content = contentRepository.findByVariableName("testString");
 
         Assert.assertEquals("testString", content.getVariable().getName());
         Assert.assertEquals(VariableType.UTF8, content.getVariable().getVariableType());
@@ -74,7 +74,7 @@ public class DatabaseTests {
 
     private <E> void insertRow(String variableName, VariableType type, E data) {
         Variable variable = new Variable(variableName, type);
-        DataContent content;
+        DataContent<?> content;
         switch (type) {
             case ID:
                 content = new IdContent(variable, (byte[]) data);

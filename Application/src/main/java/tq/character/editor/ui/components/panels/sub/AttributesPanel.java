@@ -87,7 +87,7 @@ public class AttributesPanel extends JPanel {
     private void reloadAllData(Container c) {
         for (java.awt.Component comp : c.getComponents()) {
             if (comp instanceof ADataPanel) {
-                ((ADataPanel) comp).reloadData();
+                ((ADataPanel<?, ?>) comp).reloadData();
             } else if (comp instanceof Container) {
                 reloadAllData((Container) comp);
             }

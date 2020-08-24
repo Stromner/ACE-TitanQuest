@@ -21,7 +21,7 @@ public class WaitDialog extends JDialog {
         pack();
         setLocationRelativeTo(getParent());
 
-        SwingWorker worker = new SwingWorker<Void, Void>() {
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() {
                 setVisible(true);

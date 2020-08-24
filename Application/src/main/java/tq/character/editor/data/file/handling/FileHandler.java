@@ -7,7 +7,7 @@ import tq.character.editor.data.file.handling.writer.IFileWriter;
 import javax.annotation.Resource;
 
 @Component
-public class FileHandler<V> implements IFileHandler {
+public class FileHandler<V> implements IFileHandler<V> {
     @Resource(name = "databaseFileReader")
     IFileReader<V> fileReader;
     @Resource(name = "databaseFileWriter")

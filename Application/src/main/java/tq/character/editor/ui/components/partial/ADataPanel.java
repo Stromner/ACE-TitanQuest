@@ -63,7 +63,7 @@ public abstract class ADataPanel<T, V extends JComponent> extends JPanel {
     protected void updateAllVariableRows(Container c) {
         for (Component comp : c.getComponents()) {
             if (comp instanceof ADataPanel) {
-                ((ADataPanel) comp).reloadData();
+                ((ADataPanel<?, ?>) comp).reloadData();
             } else if (comp instanceof Container) {
                 updateAllVariableRows((Container) comp);
             }
