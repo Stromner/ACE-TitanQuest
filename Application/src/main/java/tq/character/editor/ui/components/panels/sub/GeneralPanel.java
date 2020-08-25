@@ -17,7 +17,6 @@ public class GeneralPanel extends JPanel {
     @Autowired
     private IPlayerData playerData;
 
-    private JLabel generalTitle;
     private TextFormattedDataPanel<String> playerName;
     private TextReadOnlyDataPanel<Integer> playerLevel;
     private TextReadOnlyDataPanel<Integer> money;
@@ -34,9 +33,6 @@ public class GeneralPanel extends JPanel {
     }
 
     private void createGeneralPanel() throws NoSuchMethodException {
-        generalTitle = new JLabel("General");
-        add(generalTitle);
-
         Class<?> clazz = playerData.getClass();
 
         playerName = new TextFormattedDataPanel<>("Character name", playerData.getPlayerName());

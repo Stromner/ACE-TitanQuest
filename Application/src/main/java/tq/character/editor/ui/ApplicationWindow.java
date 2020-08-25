@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import tq.character.editor.core.events.DataLayerInitiatedEvent;
 import tq.character.editor.core.events.FailedToLoadFileEvent;
 import tq.character.editor.data.file.handling.IFileHandler;
-import tq.character.editor.data.player.IPlayerData;
-import tq.character.editor.data.player.attributes.IAttributesData;
 import tq.character.editor.ui.components.ContentPanel;
 import tq.character.editor.ui.dialogs.WaitDialog;
 
@@ -27,10 +25,6 @@ public class ApplicationWindow {
 
     @Autowired
     IFileHandler<ByteBuffer> fileHandler;
-    @Autowired
-    IPlayerData playerData;
-    @Autowired
-    IAttributesData attributesData;
     @Autowired
     private ContentPanel contentPanel;
 
