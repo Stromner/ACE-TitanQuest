@@ -33,12 +33,11 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
+                    <classifier>exec</classifier>
+                    <mainClass>tq.character.editor.TqCharacterEditor</mainClass>
                 </configuration>
             </plugin>
         </plugins>
