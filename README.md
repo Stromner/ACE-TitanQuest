@@ -6,7 +6,8 @@ Titan Quest Character Editor (TQCE) is a third party tool that allows you to edi
 ## Usage
 **DO NOT USE ON A FILE THAT IS CURRENTLY IN GAME** - That is a surefire way to corrupt your save file
 
-* Load your save file ([Where do I find my save file?](https://steamcommunity.com/app/475150/discussions/0/276237094312075205/)) and edit away! 
+* Load your save file (java -jar Application-1.0-SNAPSHOT-exec) and edit away! 
+  * [Where do I find my save file?](https://steamcommunity.com/app/475150/discussions/0/276237094312075205/)
 * When done make sure to save it back to your system or the changes will be discarded when you exit the program.
 
 ## For devs
