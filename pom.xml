@@ -12,8 +12,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>tq.character.editor</groupId>
-    <artifactId>TQCharacterEditor</artifactId>
+    <groupId>com.github.stromner</groupId>
+    <artifactId>tq-character-editor</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>TQCharacterEditor::Parent</name>
     <description>Character editor for Titan Quest</description>
