@@ -8,11 +8,10 @@
     <parent>
         <groupId>com.github.stromner</groupId>
         <artifactId>ace</artifactId>
-        <version>75</version>
+        <version>76</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.github.stromner</groupId>
     <artifactId>ace-titan-quest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ACE::TitanQuest::Parent</name>
@@ -37,7 +36,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <classifier>exec</classifier>
-                    <mainClass>tq.character.editor.TqCharacterEditor</mainClass>
+                    <mainClass>ace.titan.quest.AceTitanQuest</mainClass>
                 </configuration>
             </plugin>
             <!-- Skip plugins from parent pom -->

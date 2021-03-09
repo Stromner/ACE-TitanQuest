@@ -59,7 +59,7 @@ public class ApplicationWindow {
     }
 
     private void createFrame() {
-        frame = new JFrame("TQCharacterEditor");
+        frame = new JFrame("ACE:TitanQuest");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
 
