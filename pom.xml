@@ -13,9 +13,9 @@
     </parent>
 
     <groupId>com.github.stromner</groupId>
-    <artifactId>tq-character-editor</artifactId>
+    <artifactId>ace-titan-quest</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>TQCharacterEditor::Parent</name>
+    <name>ACE::TitanQuest::Parent</name>
     <description>Character editor for Titan Quest</description>
 
     <modules>

@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.github.stromner</groupId>
-        <artifactId>tq-character-editor</artifactId>
+        <artifactId>ace-titan-quest</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tq-character-editor-application</artifactId>
+    <artifactId>ace-titan-quest-application</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>TQCharacterEditor::Application</name>
+    <name>ACE::TitanQuest::Application</name>
 
     <dependencies>
         <!-- SPRING -->
