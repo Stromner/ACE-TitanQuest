@@ -1,7 +1,7 @@
-# Titan Quest Character Editor
+# ACE:TitanQuest
 
 ## Purpose
-Titan Quest Character Editor (TQCE) is a third party tool built ontop of my [ACE engine](https://github.com/Stromner/ACE) that allows you to edit your character as you see fit, which does include cheating.
+ACE:TitanQuest is a third party tool built ontop of my [ACE engine](https://github.com/Stromner/ACE) that allows you to edit your character as you see fit, which does include cheating.
 
 ## Usage
 **DO NOT USE ON A FILE THAT IS CURRENTLY IN GAME** - That is a surefire way to corrupt your save file
