@@ -1,7 +1,7 @@
 # ACE:TitanQuest
 
 ## Purpose
-ACE:TitanQuest is a third party tool built ontop of my [ACE engine](https://github.com/Stromner/ACE) that allows you to edit your character as you see fit, which does include cheating.
+ACE:TitanQuest is a third party tool built ontop of my [ACE engine](https://github.com/Stromner/ACE) that allows you to edit TitanQuest character files however you want, which does include cheating.
 
 ## Usage
 **DO NOT USE ON A FILE THAT IS CURRENTLY IN GAME** - That is a surefire way to corrupt your save file
