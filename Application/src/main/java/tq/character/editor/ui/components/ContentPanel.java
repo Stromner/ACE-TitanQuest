@@ -36,6 +36,7 @@ public class ContentPanel extends JPanel {
         try {
             characterPanel.renderData();
             cheatPanel.renderData();
+            sidebar.setSelectedIndex(0);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
